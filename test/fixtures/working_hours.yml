@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  day_of_week: 1
+  start_time: 2026-07-02 11:56:29
+  end_time: 2026-07-02 11:56:29
+  doctor: one
+
+two:
+  day_of_week: 1
+  start_time: 2026-07-02 11:56:29
+  end_time: 2026-07-02 11:56:29
+  doctor: two

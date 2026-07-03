@@ -7,7 +7,7 @@ class Doctor < ApplicationRecord
 
   validates :name, presence: true
   validates :status, presence:true
-  validate :is_doctor_object_valid
+  validate :validate_email_and_contact
 
   enum :status, {active: "active",inactive: "inactive"}
 

@@ -1,0 +1,24 @@
+(byebug) appointment_at
+2026-07-04 14:20:00.000000000 UTC +00:00
+(byebug)
+
+
+appointment_at.strftime("%H:%M").between?(doctor.working_hours.find_by(day_of_week: appointment_at.wday).start_time.strftime("%H:%M"),doctor.working_hours.find_by(day_of_week: appointment_at.wday).end_time.strftime("%H:%M"))
+
+
+  WorkingHour Load (0.8ms)  SELECT "working_hours".* FROM "working_hours" WHERE "working_hours"."doctor_id" = 1 AND "working_hours"."day_of_week" = 6 LIMIT 1 /*application='Hospital'*/
+  WorkingHour Load (0.3ms)  SELECT "working_hours".* FROM "working_hours" WHERE "working_hours"."doctor_id" = 1 AND "working_hours"."day_of_week" = 6 LIMIT 1 /*application='Hospital'*/
+true
+(byebug)
+  WorkingHour Load (0.4ms)  SELECT "working_hours".* FROM "working_hours" WHERE "working_hours"."doctor_id" = 1 AND "working_hours"."day_of_week" = 6 LIMIT 1 /*application='Hospital'*/
+  WorkingHour Load (0.7ms)  SELECT "working_hours".* FROM "working_hours" WHERE "working_hours"."doctor_id" = 1 AND "working_hours"."day_of_week" = 6 LIMIT 1 /*application='Hospital'*/
+true
+(byebug)
+
+
+appointment_at.strftime("%H:%M").between?(doctor.working_hours.find_by(day_of_week: appointment_at.wday).start_time.strftime("%H:%M"),doctor.working_hours.find_by(day_of_week: appointment_at.wday).end_time.strftime("%H:%M"))
+
+
+Appointment.where("Date(appointment_at) = ?",Date.current)
+Appointment.where(appointment_at: Time.current.all_day)
+

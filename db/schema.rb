@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_02_135054) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_03_063630) do
   create_table "appointments", force: :cascade do |t|
     t.datetime "appointment_at", null: false
     t.datetime "created_at", null: false
@@ -26,15 +26,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_02_135054) do
   end
 
   create_table "doctors", force: :cascade do |t|
+    t.string "contact_number"
     t.datetime "created_at", null: false
     t.string "email"
     t.string "name", null: false
-    t.string "phone"
     t.integer "specialization_id", null: false
     t.string "status", default: "active"
     t.datetime "updated_at", null: false
+    t.index ["contact_number"], name: "uniq_phone", unique: true
     t.index ["email"], name: "uniq_email", unique: true
-    t.index ["phone"], name: "uniq_phone", unique: true
     t.index ["specialization_id"], name: "index_doctors_on_specialization_id"
     t.check_constraint "email LIKE '%@gmail.com' OR email LIKE '%@shriffle.com'", name: "email_check"
   end

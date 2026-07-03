@@ -7,12 +7,22 @@ class Patient < ApplicationRecord
   validate :is_dob_valid
   validate :is_contact_valid
 
+
+  def book_appointment
+    doctor=Doctor.active
+    doctor.each do |doc|
+      puts "Doctor id #{doc.id} Doctor name #{doc.name}"
+    end
+  end
+
   private
   def is_contact_valid
-    errors.add(:phone, "contact number should be 10 digits, not contain string or any special character") unless phone.to_s.match?(/\A\d{10}\z/)
+    errors.add(:contact_number, "contact number should be 10 digits, not contain string or any special character") unless contact_number.to_s.match?(/\A\d{10}\z/)
   end
 
   def is_dob_valid
     errors.add(:dob, "date of birth should be in past") unless dob < Time.now
   end
+
+
 end

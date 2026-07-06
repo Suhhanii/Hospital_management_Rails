@@ -3,21 +3,24 @@ class Appointment < ApplicationRecord
   belongs_to :patient
 
   validates :status, presence:true
-  validates :doctor_id, presence: true
-  validates :patient_id, presence:true
-
+  # validates :doctor_id, presence: true
+  # validates :patient_id, presence:true
 
   enum :status, {scheduled: "scheduled",canceled: "canceled", rescheduled: "rescheduled",completed: "completed"}
 
-  # validate :appointments_cannot_booked_in_past
+  validate :appointments_cannot_booked_in_past, if: :check_changes?
   validate :doctor_should_be_active
-  validate :within_working_hour
-  validate :no_two_appointment_at_same_time
-
+  validate :within_working_hour, if: :check_changes?
+  validate :no_two_appointment_at_same_time, if: :check_changes?
 
   private
 
+  def check_changes?
+     new_record? || appointment_at_changed?
+  end
+
   def appointments_cannot_booked_in_past
+    # byebug
     errors.add(:appointment_at,"Appointments cannot be booked in the past.") unless appointment_at > Time.now
   end
 
@@ -31,14 +34,10 @@ class Appointment < ApplicationRecord
   end
 
   def no_two_appointment_at_same_time
-    # byebug
-    errors.add(:doctor_id,"doctor already have an appointment at given time") if Appointment.where(doctor_id: doctor_id, appointment_at: appointment_at..30.minutes.after).exists?
-    errors.add(:patient_id,"patient already have an appointment at given time") if Appointment.where(patient_id: patient_id, appointment_at: appointment_at..30.minutes.after).exists?
 
+    errors.add(:doctor_id,"doctor already have an appointment at given time") if Appointment.where(doctor_id: doctor_id, appointment_at: appointment_at).exists?
+    errors.add(:patient_id,"patient already have an appointment at given time") if Appointment.where(patient_id: patient_id, appointment_at: appointment_at).exists?
 
-    # start_time = appointment_at.beginning_of_day
-    # end_time = appointment_at.end_of_day
-    # doctor_app = doctor.appointments.where()
-
+    errors.add(:appointment_at, "There is already an appointment at given time") if Appointment.where(appointment_at: appointment_at-29.minute..appointment_at+29.minute).exists?
   end
 end

@@ -1,5 +1,6 @@
-
 class Doctor < ApplicationRecord
+  scope :no_appointment, ->{where}
+
   belongs_to :specialization
   has_many :appointments, dependent: :destroy
   has_many :patients, through: :appointments

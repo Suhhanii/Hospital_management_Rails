@@ -9,4 +9,8 @@
 #   end
 
 
-select doctor.* from doctor left join appointments on doctor.id =appointments.doctor.id
+# select doctor.* from doctor left join appointments on doctor.id =appointments.doctor.id
+
+
+
+

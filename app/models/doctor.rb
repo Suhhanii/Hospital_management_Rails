@@ -13,6 +13,7 @@ class Doctor < ApplicationRecord
   enum :status, {active: "active",inactive: "inactive"}
 
   private
+
   def validate_email_and_contact
     errors.add(:email, "email should contain domains are @shriffle.com, @gmail.com") unless email_valid?
     errors.add(:contact_number, "contact number should be 10 digits, not contain string or any special character") unless contact_valid?

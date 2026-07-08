@@ -9,6 +9,6 @@ class CreateDoctors < ActiveRecord::Migration[8.1]
 
       t.timestamps
     end
-      add_check_constraint :doctors, "email LIKE '%@gmail.com' OR email LIKE '%@shriffle.com'", name: "email_check"
+    add_check_constraint :doctors, "email LIKE '%@gmail.com' OR email LIKE '%@shriffle.com'", name: "email_check"
   end
 end

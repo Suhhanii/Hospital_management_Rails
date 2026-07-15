@@ -1,3 +1,26 @@
+
+1. create User model
+2. make relation has_many doctor_appointments
+3. make relation has_many patient_appointments
+4. in appointment model belongs to doctor(id) class name user
+5. in appointment model belongs to patient(id) class name user
+
+
+6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # This file should ensure the existence of records required to run the application in every environment (production,
 # development, test). The code here should be idempotent so that it can be executed at any point in every environment.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).

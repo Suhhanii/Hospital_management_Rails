@@ -6,6 +6,7 @@ class CreateDoctors < ActiveRecord::Migration[8.1]
       t.string :phone,index: {unique: true, name: "uniq_phone"}
       t.string :status, default: "active"
       t.references :specialization, null: false, foreign_key: true
+      t.string :password, null: false
 
       t.timestamps
     end

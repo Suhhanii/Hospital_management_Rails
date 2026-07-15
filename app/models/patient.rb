@@ -3,8 +3,10 @@ class Patient < ApplicationRecord
   has_many :appointments, dependent: :destroy
   has_many :doctors, through: :appointments
 
+  STRICT_EMAIL_REGEXP = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]{2,6}\z/i
+
   validates :name, presence: true
-  validates :email, format: URI::MailTo::EMAIL_REGEXP
+  validates :email, format: {with: STRICT_EMAIL_REGEXP}
 
   validate if: :contact_number do
     errors.add(:contact_number, "should be 10 digits only") unless contact_number.to_s.match?(/\A\d{10}\z/)

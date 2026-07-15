@@ -10,6 +10,6 @@ class WorkingHour < ApplicationRecord
 
   private
   def validating_duration
-    errors.add(:end_time, "end time should be greater then start time") unless start_time <= end_time
+    errors.add(:end_time, "end time should be greater then start time") unless start_time < end_time
   end
 end

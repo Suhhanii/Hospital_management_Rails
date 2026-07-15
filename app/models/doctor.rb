@@ -1,6 +1,7 @@
 class Doctor < ApplicationRecord
   belongs_to :specialization
-  has_many :appointments, dependent: :destroy
+  has_many :dappointments, dependent: :destroy
+  has_many :pappointments, dependent: :destroy
   has_many :patients, through: :appointments
   has_many :working_hours
 

@@ -1,0 +1,2 @@
+module PatientSessionsHelper
+end

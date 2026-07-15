@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[8.1].define(version: 2026_07_08_135105) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_catalog.plpgsql"
+
   create_table "appointments", force: :cascade do |t|
     t.datetime "appointment_at", null: false
     t.datetime "created_at", null: false
@@ -31,13 +34,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_135105) do
     t.datetime "created_at", null: false
     t.string "email"
     t.string "name", null: false
+    t.string "password"
     t.integer "specialization_id", null: false
     t.boolean "status", default: true
     t.datetime "updated_at", null: false
     t.index ["contact_number"], name: "uniq_phone", unique: true
     t.index ["email"], name: "uniq_email", unique: true
     t.index ["specialization_id"], name: "index_doctors_on_specialization_id"
-    t.check_constraint "email LIKE '%@gmail.com' OR email LIKE '%@shriffle.com'", name: "email_check"
+    t.check_constraint "email::text ~~ '%@gmail.com'::text OR email::text ~~ '%@shriffle.com'::text", name: "email_check"
   end
 
   create_table "patients", force: :cascade do |t|
@@ -46,6 +50,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_135105) do
     t.date "dob", null: false
     t.string "email"
     t.string "name", null: false
+    t.string "password"
     t.datetime "updated_at", null: false
     t.index ["contact_number"], name: "index_patients_on_contact_number"
     t.index ["email"], name: "index_patients_on_email"
@@ -66,7 +71,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_135105) do
     t.time "start_time"
     t.datetime "updated_at", null: false
     t.index ["doctor_id"], name: "index_working_hours_on_doctor_id"
-    t.check_constraint "day_of_week BETWEEN 0 AND 6", name: "day_of_week_check"
+    t.check_constraint "day_of_week >= 0 AND day_of_week <= 6", name: "day_of_week_check"
     t.check_constraint "end_time > start_time", name: "working_hour_check"
   end
 

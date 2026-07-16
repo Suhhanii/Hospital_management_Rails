@@ -1,9 +1,0 @@
-<p><%=flash[:alert]%></p>
-<h1>Patient Login</h1>
-
-<%= form_with url: patient_login_path do |f| %>
-  <%=f.email_field :email %>
-  <%=f.password_field :password %>
-
-  <%=f.submit "Login" %>
-<% end %>

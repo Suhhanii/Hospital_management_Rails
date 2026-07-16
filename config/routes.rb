@@ -1,24 +1,4 @@
 Rails.application.routes.draw do
-  # get "specializations/index"
-  # get "specializations/show"
-  # get "specializations/delete"
-  # get "specializations/edit"
-  # get "specializations/new"
-  # get "appointments/index"
-  # get "appointments/show"
-  # get "appointments/delete"
-  # get "appointments/edit"
-  # get "appointments/new"
-  # get "patients/index"
-  # get "patients/show"
-  # get "patients/delete"
-  # get "patients/edit"
-  # get "patients/new"
-  # get "doctors/index"
-  # get "doctors/show"
-  # get "doctors/delete"
-  # get "doctors/edit"
-  # get "doctors/new"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -32,25 +12,38 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  resources :patients do
-    collection do
-      get :dashboard
-    end
-  end
-  resources :doctors
-  resources :appointments
-  resources :specializations
+  # resources :patients do
+  #   collection do
+  #     get :dashboard
+  #   end
+  # end
+  # resources :doctors
+  # resources :appointments
+  # resources :specializations
 
   root "dashboard#index"
 
-  # get "dashboard", to: "dashboard#index"
+  resources :users
+  resources :appointments
 
-  get "patient/login", to: "patient_sessions#new", as: :new_patient_login
-  post "/patient/login", to: "patient_sessions#create", as: :patient_login
-  delete "patient/logout", to: "patient_sessions#destroy", as: :patient_logout
+  get  "signin",  to: "authentication#new"
 
-  get "doctor/login", to: "doctor_sessions#new", as: :new_doctor_login
-  post "doctor/login", to: "doctor_sessions#create", as: :doctor_login
-  delete "doctor/logout", to: "doctor_sessions#destroy", as: :doctor_logout
+  post "signin",  to: "authentication#create"
+
+  delete "signout", to: "authentication#destroy"
+
+  get "doctors/dashboard", to: "doctors#index"
+  get "patients/dashboard", to: "patients#index"
+
+  # # get "dashboard", to: "dashboard#index"
+
+  # get "patient/login", to: "patient_sessions#new", as: :new_patient_login
+  # post "/patient/login", to: "patient_sessions#create", as: :patient_login
+  # delete "patient/logout", to: "patient_sessions#destroy", as: :patient_logout
+
+  # get "doctor/login", to: "doctor_sessions#new", as: :new_doctor_login
+  # post "doctor/login", to: "doctor_sessions#create", as: :doctor_login
+  # delete "doctor/logout", to: "doctor_sessions#destroy", as: :doctor_logout
+
 
 end

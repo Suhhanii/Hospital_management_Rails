@@ -1,0 +1,10 @@
+<% if flash[:alert] %>
+  <%= flash[:alert] %>
+<% end %>
+
+<h1>Login</h1>
+<%= form_with url: signin_path do |f| %>
+  <p>Email <%= f.email_field :email %></p>
+  <p>Password <%= f.password_field :password %></p>
+  <%= f.submit "Login" %>
+<% end %>

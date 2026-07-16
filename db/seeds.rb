@@ -1,12 +1,12 @@
 
-1. create User model
-2. make relation has_many doctor_appointments
-3. make relation has_many patient_appointments
-4. in appointment model belongs to doctor(id) class name user
-5. in appointment model belongs to patient(id) class name user
+# 1. create User model
+# 2. make relation has_many doctor_appointments
+# 3. make relation has_many patient_appointments
+# 4. in appointment model belongs to doctor(id) class name user
+# 5. in appointment model belongs to patient(id) class name user
 
 
-6
+# 6
 
 
 
@@ -51,8 +51,8 @@
 
 #  GROUP BY "appointments"."doctor_id" /* loading for pp */ ORDER BY COUNT(appointments.id) DESC LIMIT 11 /*application='Hospital'*/
 
-Doctor.create!(name: "kretos",email: "kretos@gmail.com",contact_number: "5987690909",specialization_id: 1)
+# Doctor.create!(name: "kretos",email: "kretos@gmail.com",contact_number: "5987690909",specialization_id: 1)
 
-Patient.create!(name: "candy",email: "candy@gmail.com",contact_number: "6565423231",dob: Date.new(2001,2,3))
+# Patient.create!(name: "candy",email: "candy@gmail.com",contact_number: "6565423231",dob: Date.new(2001,2,3))
 
-Appointment.new(patient_id: 1,doctor_id: 1,appointment_at: "2026-08-09 8:00 pm")
+# Appointment.new(patient_id: 1,doctor_id: 1,appointment_at: "2026-08-09 8:00 pm")

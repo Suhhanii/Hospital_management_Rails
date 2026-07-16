@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_08_135105) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_16_085116) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "appointments", force: :cascade do |t|
-    t.datetime "appointment_at", null: false
+    t.datetime "appointment_at", precision: nil, null: false
     t.datetime "created_at", null: false
-    t.integer "doctor_id", null: false
+    t.bigint "doctor_id", null: false
     t.integer "duration", default: 30
-    t.integer "patient_id", null: false
+    t.bigint "patient_id", null: false
     t.integer "refer_to"
     t.string "status", default: "scheduled"
     t.datetime "updated_at", null: false
@@ -63,6 +63,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_135105) do
     t.index ["name"], name: "uniq_name", unique: true
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "contact_number", null: false
+    t.datetime "created_at", null: false
+    t.date "dob"
+    t.string "email", null: false
+    t.string "name", null: false
+    t.string "password", null: false
+    t.bigint "specialization_id"
+    t.boolean "status"
+    t.string "type"
+    t.datetime "updated_at", null: false
+    t.index ["specialization_id"], name: "index_users_on_specialization_id"
+  end
+
   create_table "working_hours", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "day_of_week"
@@ -70,13 +84,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_135105) do
     t.time "end_time"
     t.time "start_time"
     t.datetime "updated_at", null: false
-    t.index ["doctor_id"], name: "index_working_hours_on_doctor_id"
     t.check_constraint "day_of_week >= 0 AND day_of_week <= 6", name: "day_of_week_check"
-    t.check_constraint "end_time > start_time", name: "working_hour_check"
   end
 
-  add_foreign_key "appointments", "doctors"
-  add_foreign_key "appointments", "patients"
+  add_foreign_key "appointments", "users", column: "doctor_id"
+  add_foreign_key "appointments", "users", column: "patient_id"
   add_foreign_key "doctors", "specializations"
-  add_foreign_key "working_hours", "doctors"
+  add_foreign_key "users", "specializations"
 end

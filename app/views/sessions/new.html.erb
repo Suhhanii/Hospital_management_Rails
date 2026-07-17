@@ -1,8 +1,8 @@
-<!-- app/views/registrations/new.html.erb -->
+<!-- app/views/sessions/new.html.erb -->
 <div class="text-center">
-  <h1>Registration</h1>
+  <h1>Sign In</h1>
 
-  <%= form_with(model: @user, url: registrations_path, local: true) do |f| %>
+  <%= form_with(model: @user, url: sessions_path, local: true) do |f| %>
 
     <!-- Display error message of form -->
     <% if f.object.errors.full_messages.any? %>
@@ -13,7 +13,7 @@
       </ul>
     <% end %>
 
-    <!-- Field of registration form -->
+    <!-- Field of sessoin form -->
     <div class='row'>
       <%= f.label :email %>
       <%= f.text_field :email, placeholder: 'Please enter email id' %>
@@ -25,12 +25,7 @@
     </div>
 
     <div class='row'>
-      <%= f.label :password_confirmation %>
-      <%= f.password_field :password_confirmation, placeholder: 'Please enter password confirmation' %>
+      <%= f.submit 'Sign In' %>
     </div>
-
-    <div class='row'>
-      <%= f.submit 'Sign Up' %>
-    </div>
-  <% end%>
+  <% end %>
 </div>

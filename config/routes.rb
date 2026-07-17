@@ -26,11 +26,16 @@ Rails.application.routes.draw do
   resources :users
   resources :appointments
 
-  get  "signin",  to: "authentication#new"
+  resources :authentications, only: [:new,:create]
+  resources :sessions, only: [:new, :create, :destroy]
 
-  post "signin",  to: "authentication#create"
 
-  delete "signout", to: "authentication#destroy"
+  # get  "sign_in",  to: "authentication#new"
+
+  # post "sign_in",  to: "authentication#sign_in"
+  # post "sign_up",  to: "authentication#sign_up"
+
+  # delete "sign_out", to: "authentication#destroy"
 
   get "dashboard", to: "dashboard#user_show"
   # get "/dashboard", to: "users#dashboard"

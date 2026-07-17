@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   # self.inheritance_column = "type"
+  has_secure_password
   STRICT_EMAIL_REGEXP = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]{2,6}\z/i
 
   validates :name, presence: true

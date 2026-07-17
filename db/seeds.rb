@@ -56,3 +56,15 @@
 # Patient.create!(name: "candy",email: "candy@gmail.com",contact_number: "6565423231",dob: Date.new(2001,2,3))
 
 # Appointment.new(patient_id: 1,doctor_id: 1,appointment_at: "2026-08-09 8:00 pm")
+
+
+# Specialization.create!(name: "Cardiologists")
+
+# Doctor.create!(name: "doctor", password: "Doctor@123", email: "doctor@gmail.com", specialization: Specialization.first, contact_number: "1234567890")
+
+# WorkingHour.create!(day_of_week: 1, start_time: Time.zone.strptime("12:00 am","%I:%M %p"),end_time: Time.zone.strptime("6:00 pm","%I:%M %p"),doctor_id: 1)
+
+# Patient.create!(name: "patient", password: "Patient@123", email: "patient@gmail.com",  contact_number: "1234567890",dob: Date.new(2000,9,1))
+
+# p=Patient.first
+# p.book_appointment(1,"2026-07-20 1:00 pm")

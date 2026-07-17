@@ -1,0 +1,27 @@
+<% if session[:doctor_name] %>
+<h1>Welcome Doctor, <%= session[:doctor_name] %> </h1>
+<center>
+  <h2>Today's Appointments </h2>
+    <br>
+
+    <h3>
+      Scheduled : <%= @today_schedule_app.count %>
+    </h3>
+
+    <h3>
+      Completed : <%= @today_completed_app.count %>
+    </h3>
+
+    <h3>
+      Cancelled : <%= @today_cancel_app.count %>
+    </h3>
+</center>
+
+<p> <%= link_to "View Appointments", appointments_path %> </p>
+
+<p> <%= link_to "Profile", user_path(@doc) %> </p>
+
+<p> <%= button_to "Sign-Out", signout_path, method: :delete %> </p>
+<% else %>
+
+<% end %>

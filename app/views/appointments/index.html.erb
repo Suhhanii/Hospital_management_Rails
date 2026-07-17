@@ -1,2 +1,48 @@
-<h1>Appointments#index</h1>
-<p>Find me in app/views/appointments/index.html.erb</p>
+<h1>Your Appointments</h1>
+<% if session[:doctor_name] %>
+  <% if @today_schedule_app.present? || @today_cancel_app.present? || @today_completed_app.present? %>
+
+    <% if @today_schedule_app.present? %>
+      <h3> Todays Schedule Appointments </h3>
+      <% @today_schedule_app.each do |a| %>
+        Appointment at : <%= a.appointment_at %>
+        status is : <b><%= a.status %></b>
+        with <%= Patient.find(a.patient_id).name %>
+        <br>
+      <% end %>
+    <% end %>
+
+    <% if @today_cancel_app.present? %>
+      <h3> Todays Cancel Appointments </h3>
+      <% @today_cancel_app.each do |a| %>
+         Appointment at : <%= a.appointment_at %>
+         status is : <b><%= a.status %></b>
+         with <%= Patient.find(a.patient_id).name %>
+         <br>
+      <% end %>
+    <% end %>
+
+    <% if @today_completed_app.present? %>
+      <h3> Todays Completed Appointments </h3>
+      <% @today_completed_app.each do |a| %>
+        Appointment at : <%= a.appointment_at %>
+        status is : <b><%= a.status %></b>
+        with <%= Patient.find(a.patient_id).name %>
+        <br>
+      <% end %>
+    <% end %>
+
+  <% else %>
+     <h2> There is no Appointments </h2>
+  <% end %>
+<% else %>
+  <h1>hello patient</h1>
+<% end %>
+
+<%#
+@doc = Doctor.find(session[:user_id])
+@a = @doc.appointments
+@today_schedule_app = @a.todays_appointments("scheduled")
+@today_cancel_app = @a.todays_appointments("canceled")
+@today_completed_app = @a.todays_appointments("completed")
+%>

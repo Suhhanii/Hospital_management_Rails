@@ -1,0 +1,10 @@
+<h1> Profile </h1>
+<h2>Name : <%= @user.name %> </h2>
+<h2>Email : <%= @user.email %> </h2>
+<h2>Contact : <%= @user.contact_number %> </h2>
+<% if @user.dob %>
+ <h2>Date Of Birth : <%= @user.dob %> </h2>
+<% end %>
+<% if @user.specialization_id %>
+ <h2> <% Specialization.find(@user.specialization_id)   %></h2>
+<% end %>

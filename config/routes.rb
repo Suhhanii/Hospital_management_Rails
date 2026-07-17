@@ -32,8 +32,8 @@ Rails.application.routes.draw do
 
   delete "signout", to: "authentication#destroy"
 
-  get "doctors/dashboard", to: "doctors#index"
-  get "patients/dashboard", to: "patients#index"
+  get "dashboard", to: "dashboard#user_show"
+  # get "/dashboard", to: "users#dashboard"
 
   # # get "dashboard", to: "dashboard#index"
 
@@ -44,6 +44,4 @@ Rails.application.routes.draw do
   # get "doctor/login", to: "doctor_sessions#new", as: :new_doctor_login
   # post "doctor/login", to: "doctor_sessions#create", as: :doctor_login
   # delete "doctor/logout", to: "doctor_sessions#destroy", as: :doctor_logout
-
-
 end

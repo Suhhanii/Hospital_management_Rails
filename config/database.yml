@@ -50,7 +50,7 @@ default: &default
 
 development:
   <<: *default
-  database: hospital _development
+  database: hospital_development
 
 test:
   <<: *default

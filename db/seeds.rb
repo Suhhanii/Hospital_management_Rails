@@ -68,3 +68,8 @@
 
 # p=Patient.first
 # p.book_appointment(1,"2026-07-20 1:00 pm")
+
+# u.appointments.where("appointment_at > ?",Date.tomorrow)
+# u.appointments.where(appointment_at: Date.today.all_day)
+
+# u.appointments.where("appointment_at < ?",Date.today)

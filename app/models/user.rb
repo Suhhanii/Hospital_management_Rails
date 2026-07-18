@@ -4,8 +4,8 @@ class User < ApplicationRecord
   STRICT_EMAIL_REGEXP = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]{2,6}\z/i
 
   validates :name, presence: true
-  validates :password, presence: true
-  validates :email, format: {with: STRICT_EMAIL_REGEXP}
+  validates :password, presence: true, on: :create
+  validates :email, presence: true, uniqueness: true, format: {with: STRICT_EMAIL_REGEXP}
 
   has_many :doctor_appointments, class_name: "Appointment", foreign_key: :doctor_id, dependent: :destroy
 

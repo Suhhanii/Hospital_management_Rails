@@ -1,5 +1,25 @@
-<% if session[:doctor_name] %>
-<h1>Welcome Doctor, <%= session[:doctor_name] %> </h1>
+<% if current_user&.is_a?(Doctor) %>
+<h1>Welcome Doctor, <%= current_user.name %> </h1>
+
+<div style="display:flex; justify-content:space-evenly; align-item: center; font-size: 18px;">
+<span style="display:flex;>
+<label for="Appointments">Show Appointments: &nbsp; </label>
+<%= form_with url: appointments_path, method: :get, local: true do %>
+  <%= select_tag :filter,
+      options_for_select(
+        [
+          ["Today's", "today"],
+          ["Upcoming", "upcoming"],
+          ["Past", "past"]
+        ],
+        params[:filter]
+      ),
+      onchange: "this.form.submit();" %>
+<% end %>
+</span>
+<p> <%= link_to "Profile", user_path(@doc) %> </p>
+</div>
+
 <center>
   <h2>Today's Appointments </h2>
     <br>
@@ -16,10 +36,7 @@
       Cancelled : <%= @today_cancel_app.count %>
     </h3>
 </center>
-
-<p> <%= link_to "View Appointments", appointments_path %> </p>
-
-<p> <%= link_to "Profile", user_path(@doc) %> </p>
+<%# link_to "View Appointments", appointments_path %> 
 <% else %>
 
 <% end %>

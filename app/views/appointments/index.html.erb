@@ -1,10 +1,10 @@
 <h1>Your Appointments</h1>
-<% if session[:doctor_name] %>
-  <% if @today_schedule_app.present? || @today_cancel_app.present? || @today_completed_app.present? %>
+<% if current_user&.is_a?(Doctor) %>
+  <% if @scheduled.present? || @canceled.present? || @completed.present? %>
 
-    <% if @today_schedule_app.present? %>
-      <h3> Todays Schedule Appointments </h3>
-      <% @today_schedule_app.each do |a| %>
+    <% if @scheduled.present? %>
+      <h3>Schedule Appointments </h3>
+      <% @scheduled.each do |a| %>
         Appointment at : <%= a.appointment_at %>
         status is : <b><%= a.status %></b>
         with <%= Patient.find(a.patient_id).name %>
@@ -12,9 +12,9 @@
       <% end %>
     <% end %>
 
-    <% if @today_cancel_app.present? %>
-      <h3> Todays Cancel Appointments </h3>
-      <% @today_cancel_app.each do |a| %>
+    <% if @canceled.present? %>
+      <h3> Cancel Appointments </h3>
+      <% @canceled.each do |a| %>
          Appointment at : <%= a.appointment_at %>
          status is : <b><%= a.status %></b>
          with <%= Patient.find(a.patient_id).name %>
@@ -22,9 +22,9 @@
       <% end %>
     <% end %>
 
-    <% if @today_completed_app.present? %>
-      <h3> Todays Completed Appointments </h3>
-      <% @today_completed_app.each do |a| %>
+    <% if @completed.present? %>
+      <h3> Completed Appointments </h3>
+      <% @completed.each do |a| %>
         Appointment at : <%= a.appointment_at %>
         status is : <b><%= a.status %></b>
         with <%= Patient.find(a.patient_id).name %>

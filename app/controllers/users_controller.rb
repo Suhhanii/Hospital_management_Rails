@@ -1,19 +1,35 @@
 class UsersController < ApplicationController
+  skip_before_action :authenticate_user, only: [:new, :create]
+  before_action :redirect_if_authenticated, only: [:new, :create]
 
-  # def dashboard
-  #   # byebug
-  #   if session[:doctor_name]
-  #     @doc = Doctor.find(session[:user_id])
-  #     @a = @doc.appointments
-  #     @today_schedule_app = @a.todays_appointments("scheduled")
-  #     @today_cancel_app = @a.todays_appointments("canceled")
-  #     @today_completed_app = @a.todays_appointments("completed")
-  #   else session[:patient_name]
+  def new
+    @user = User.new
+  end
 
-  #   end
+  def create
+    @user = User.new(user_params)
 
-  # end
+    if @user.save
+      session[:user_id] = @user.id
+      redirect_to root_path, notice: "Account created successfully."
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   def show
     @user = User.find(params[:id])
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(
+      :name,
+      :email,
+      :password,
+      :password_confirmation,
+      :type
+    )
   end
 end

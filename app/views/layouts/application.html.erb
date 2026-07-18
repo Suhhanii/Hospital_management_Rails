@@ -18,9 +18,10 @@
   </head>
 
   <body>
+    <center>
     <header>
+      <h1>Hospital Management System </h1>
       <% if session[:user_id] %>
-        <p>Logged in as: Admin</p>
         <%= form_with url: session_path(session[:user_id]), method: :delete do %>
           <%= submit_tag 'Logout' %>
         <% end %>
@@ -28,12 +29,14 @@
       <% else %>
         <%= link_to 'Login', new_session_path %>
       <% end %>
+      
     </header>
 
     <% if notice %>
       <p><%= notice %></p>
     <% end %>
-
+   
     <%= yield %>
+    </center>
   </body>
 </html>

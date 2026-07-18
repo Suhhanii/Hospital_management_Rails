@@ -1,31 +1,25 @@
-<!-- app/views/sessions/new.html.erb -->
 <div class="text-center">
   <h1>Sign In</h1>
 
+  <% if flash[:alert] %>
+    <p class="text-danger"><%= flash[:alert] %></p>
+  <% end %>
+
   <%= form_with(model: @user, url: sessions_path, local: true) do |f| %>
 
-    <!-- Display error message of form -->
-    <% if f.object.errors.full_messages.any? %>
-      <ul class='error'>
-        <% f.object.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    <% end %>
-
-    <!-- Field of sessoin form -->
-    <div class='row'>
-      <%= f.label :email %>
-      <%= f.text_field :email, placeholder: 'Please enter email id' %>
+    <div class="row">
+      <%= f.label :email %><br>
+      <%= f.email_field :email, placeholder: "Enter your email" %>
     </div>
 
-    <div class='row'>
-      <%= f.label :password %>
-      <%= f.password_field :password, placeholder: 'Please enter password' %>
+    <div class="row">
+      <%= f.label :password %><br>
+      <%= f.password_field :password, placeholder: "Enter your password" %>
     </div>
 
-    <div class='row'>
-      <%= f.submit 'Sign In' %>
+    <div class="row">
+      <%= f.submit "Sign In" %>
     </div>
+
   <% end %>
 </div>

@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   # resources :appointments
   # resources :specializations
 
-  root "dashboard#index"
+  root "dashboard#user_show"
 
   resources :users
   resources :appointments

@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   #     get :dashboard
   #   end
   # end
-  # resources :doctors
+  resources :doctors
   # resources :appointments
   # resources :specializations
 
@@ -28,6 +28,9 @@ Rails.application.routes.draw do
 
   resources :authentications, only: [:new,:create]
   resources :sessions, only: [:new, :create, :destroy]
+
+  resources :working_hours
+  resources :specializations
 
 
   # get  "sign_in",  to: "authentication#new"

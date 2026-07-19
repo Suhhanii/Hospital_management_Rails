@@ -10,7 +10,6 @@ class DashboardController < ApplicationController
       @today_completed_app = @appointments.todays_appointments("completed")
 
     elsif current_user.is_a?(Patient)
-      # Patient dashboard
     end
   end
 end

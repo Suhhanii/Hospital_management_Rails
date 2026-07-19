@@ -1,32 +1,8 @@
-<h1>Hello Doctor, <%= session[:doctor_name]%></h1>
-<%# <%= session[:user_id] %>
-<br>
-
-<% @appointments.each do |a| %>
-  Appointment at :
-  <%= a.appointment_at %>
-  Status :
-  <%= a.status %>
-  With :
-  <%= Patient.find(a.patient_id).name %>
-
-  <%= link_to "View", appointments_path(a) %>
-  <%= link_to "Edit", edit_appointment_path(a) %>
-  <%= button_to "Cancel", appointments_path(a), method: :delete, form: { style: "display: inline-block;" } %>
-  <br><br>
+<h2> Our Best Doctors </h2>
+<% @doctors.each do |doctor| %>
+  <h2>
+  Dr. <%= doctor.name %>
+  has specialization in <%= doctor.specialization.name %>
+  </h2>
 <% end %>
-
-
-
-
-<%# Todays appointments
- today scheduled
- today cancelled
- today reschedule
-   --reschedule, cancel
-
-upcoming appointments
-   --reschedule, cancel
-overdues appointments %>
-
 

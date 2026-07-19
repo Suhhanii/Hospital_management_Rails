@@ -1,6 +1,5 @@
 class AppointmentsController < ApplicationController
   def index
-    if current_user&.is_a?(Doctor)
         # @doc = Doctor.find(session[:user_id])
         # @a = @doc.appointments
         # @today_schedule_app = @a.todays_appointments("scheduled")
@@ -19,11 +18,8 @@ class AppointmentsController < ApplicationController
         @scheduled = @appointments.scheduled
         @canceled = @appointments.canceled
         @completed = @appointments.completed
-        # byebug
-    else
-
+        @status = params[:filter]
     end
-  end
 
   def show
     @app = Appointment.find(params[:format])

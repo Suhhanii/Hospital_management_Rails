@@ -1,0 +1,10 @@
+<h1><%= current_user.name.capitalize %>, WorkingHours</h1>
+
+<% @working_hours.each do |wh| %>
+    <h2>
+    <%= wh.day_of_week.upcase %> =>
+    Start Time: <%= wh.start_time.strftime("%H:%M:%S") %>
+    , End Time: <%= wh.end_time.strftime("%H:%M:%S") %>  
+    </h2>
+    <br>
+<% end %>

@@ -1,5 +1,6 @@
 class SpecializationsController < ApplicationController
   def index
+    @specialization = current_user.specialization.name
   end
 
   def show

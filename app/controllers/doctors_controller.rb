@@ -1,7 +1,7 @@
 class DoctorsController < ApplicationController
   def index
-    @appointments = Doctor.find(session[:user_id]).appointments
     # byebug
+    @doctors = Doctor.all
   end
 
   def show

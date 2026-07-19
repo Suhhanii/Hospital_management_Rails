@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> City Care Hospital </title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+
+    <style>
+      aside {
+        color: #fff;
+        width: 250px;
+        padding-left: 20px;
+        height: 100vh;
+        background-image: linear-gradient(30deg , #0048bd, #44a7fd);
+        border-top-right-radius: 80px;
+      }
+
+      aside a {
+        font-size: 12px;
+        color: #fff;
+        display: block;
+        padding: 12px;
+        padding-left: 30px;
+        text-decoration: none;
+        -webkit-tap-highlight-color:transparent;
+      }
+
+      aside a:hover {
+        color: #3f5efb;
+        background: #fff;
+        outline: none;
+        position: relative;
+        background-color: #fff;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+      }
+
+      aside a i {
+        margin-right: 5px;
+      }
+
+      aside a:hover::after {
+        content: "";
+        position: absolute;
+        background-color: transparent;
+        bottom: 100%;
+        right: 0;
+        height: 35px;
+        width: 35px;
+        border-bottom-right-radius: 18px;
+        box-shadow: 0 20px 0 0 #fff;
+      }
+
+      aside a:hover::before {
+        content: "";
+        position: absolute;
+        background-color: transparent;
+        top: 38px;
+        right: 0;
+        height: 35px;
+        width: 35px;
+        border-top-right-radius: 18px;
+        box-shadow: 0 -20px 0 0 #fff;
+      }
+
+      aside p {
+        margin: 0;
+        padding: 40px 0;
+      }
+
+      body {
+        font-family: 'Roboto';
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .social {
+        height: 0;  
+      }
+
+      .social i:before {
+        width: 14px;
+        height: 14px;
+        font-size: 14px;
+        position: fixed;
+        color: #fff;
+        background: #0077B5;
+        padding: 10px;
+        border-radius: 50%;
+        top:5px;
+        right:5px;
+      }
+      body {
+        margin: 0;
+      }
+
+      .container {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      aside {
+        width: 250px;
+      }
+
+      main {
+        flex: 1;
+        padding: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+  <div class="container">
+    <aside >
+      <p> Menu </p>
+      <span style="display:flex;>
+        <label for="Appointments">Show Appointments: &nbsp; </label>
+        <%= form_with url: appointments_path, method: :get, local: true do %>
+        <%= select_tag :filter,
+            options_for_select(
+                [
+                ["Today's", "today"],
+                ["Upcoming", "upcoming"],
+                ["Past", "past"]
+                ],
+                params[:filter]
+            ),
+            onchange: "this.form.submit();" %>
+        <% end %>
+      </span>
+      <br>
+      <br>
+      <%= link_to "Profile", user_path(current_user)%>
+      <br>
+      <% if current_user.is_a?(Doctor) %>
+      <%= link_to "Working Hours", working_hours_path %>
+      <% else %>
+      <%= link_to "Doctors", doctors_path %>
+      <% end %>
+      <br>
+      <% if current_user.is_a?(Doctor) %>
+      <%= link_to "Specialization", specializations_path %>
+      <% end %>
+      <br>
+    </aside>
+
+    <div class="social">
+      <a href="https://www.linkedin.com/in/florin-cornea-b5118057/" target="_blank">
+        <i class="fa fa-linkedin"></i>
+      </a>
+    </div>
+    <main>
+      <% if session[:user_id] %> 
+        <%= form_with url: session_path(session[:user_id]), method: :delete do %>
+        <%= submit_tag 'Logout' %>
+        <% end %> 
+      <% else %> 
+        <%= link_to 'Login', new_session_path %> 
+      <% end %>
+      
+      <%= yield %>
+    </main>
+  </div>
+    
+  </body>
+</html>

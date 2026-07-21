@@ -1,4 +1,5 @@
 class Doctor < User
+  has_secure_password
   belongs_to :specialization
   has_many :appointments, dependent: :destroy
   # has_many :pappointments, dependent: :destroy

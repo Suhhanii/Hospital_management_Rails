@@ -1,2 +1,90 @@
-<h1>Appointments#show</h1>
-<p>Find me in app/views/appointments/show.html.erb</p>
+<div style="background:#fff; padding:35px; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,.15); max-width:700px; margin:auto;">
+
+  <h1 style="text-align:center; color:#2c3e50; margin-bottom:30px;">
+    Appointment Details
+  </h1>
+
+  <div style="background:#f8f9fa; padding:25px; border-radius:10px; margin-bottom:30px;">
+
+    <p style="font-size:18px; margin-bottom:18px;">
+      <strong>Appointment At</strong><br>
+      <span style="color:#555;">
+        <%= @app.appointment_at.strftime("%d %B %Y, %I:%M %p") %>
+      </span>
+    </p>
+
+    <p style="font-size:18px; margin-bottom:18px;">
+      <strong>Status </strong>
+      <br>
+
+      <% if @app.status == "scheduled" %>
+        <span style="background:#007bff; color:white; padding:5px 12px; border-radius:20px;">
+          Scheduled
+        </span>
+
+      <% elsif @app.status == "completed" %>
+
+        <span style="background:#28a745; color:white; padding:5px 12px; border-radius:20px;">
+          Completed
+        </span>
+
+      <% else %>
+
+        <span style="background:#dc3545; color:white; padding:5px 12px; border-radius:20px;">
+          Cancelled
+        </span>
+
+      <% end %>
+
+    </p>
+
+    <p style="font-size:18px;">
+
+      <strong>
+        <% if current_user.is_a?(Doctor) %>
+          Patient
+        <% else %>
+          Doctor
+        <% end %>
+      </strong>
+      <br>
+
+      <span style="color:#555;">
+
+        <% if current_user.is_a?(Doctor) %>
+          <%= Patient.find(@app.patient_id).name %>
+        <% else %>
+          <%= Doctor.find(@app.doctor_id).name %>
+        <% end %>
+
+      </span>
+
+    </p>
+
+  </div>
+
+  <div style="display:flex; justify-content:center; gap:15px; flex-wrap:wrap;">
+
+    <% if current_user.is_a?(Doctor) %>
+
+      <%= link_to "Complete",
+          edit_appointment_path(@app, action_type: "complete"),
+          style:"background:#28a745; color:white; text-decoration:none; padding:12px 24px; border-radius:6px; font-weight:bold;" %>
+
+    <% end %>
+
+    <%= link_to "Cancel",
+        edit_appointment_path(@app, action_type: "cancel"),
+        style:"background:#dc3545; color:white; text-decoration:none; padding:12px 24px; border-radius:6px; font-weight:bold;" %>
+
+    <% if @app.appointment_at > Time.current %>
+
+      <%= link_to "Reschedule",
+          edit_appointment_path(@app, action_type: "reschedule"),
+          style:"background:#007bff; color:white; text-decoration:none; padding:12px 24px; border-radius:6px; font-weight:bold;" %>
+
+    <% end %>
+
+  </div>
+
+</div>

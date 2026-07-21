@@ -1,27 +1,48 @@
-<% if current_user&.is_a?(Doctor) %>
-  <center>
-    <h1>Welcome Doctor, <%= current_user.name %> </h1>
-  </center>
+<% if current_user.is_a?(Doctor) %>
 
-  <center>
-    <h2>Today's Appointments </h2>
-      <br>
+<div style="text-align:center;">
 
-      <h3>
-        Scheduled : <%= @today_schedule_app.count %>
-      </h3>
+    <h1 style="color:#2c3e50; margin-bottom:10px;">
+        Welcome Dr. <%= current_user.name %>
+    </h1>
 
-      <h3>
-        Completed : <%= @today_completed_app.count %>
-      </h3>
+    <p style="color:#666; margin-bottom:35px;">
+        Here's your appointment summary for today.
+    </p>
 
-      <h3>
-        Cancelled : <%= @today_cancel_app.count %>
-      </h3>
-  </center>
-  <%# link_to "View Appointments", appointments_path %> 
+</div>
+
+<div style="display:flex; justify-content:center; gap:25px; flex-wrap:wrap;">
+
+    <div style="width:220px; background:#007bff; color:white; padding:25px; border-radius:10px; text-align:center;">
+        <h2><%= @today_schedule_app.count %></h2>
+        <p>Scheduled</p>
+    </div>
+
+    <div style="width:220px; background:#28a745; color:white; padding:25px; border-radius:10px; text-align:center;">
+        <h2><%= @today_completed_app.count %></h2>
+        <p>Completed</p>
+    </div>
+
+    <div style="width:220px; background:#dc3545; color:white; padding:25px; border-radius:10px; text-align:center;">
+        <h2><%= @today_cancel_app.count %></h2>
+        <p>Cancelled</p>
+    </div>
+
+</div>
+
 <% else %>
-  <center>
-  <h1>Welcome, <%= current_user.name.capitalize %> </h1>
-  </center>
+
+<div style="text-align:center;">
+
+    <h1 style="color:#2c3e50;">
+        Welcome, <%= current_user.name.capitalize %>
+    </h1>
+
+    <p style="margin-top:20px; color:#666;">
+        Manage your appointments, view doctors and update your profile using the menu.
+    </p>
+
+</div>
+
 <% end %>

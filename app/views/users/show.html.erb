@@ -1,10 +1,43 @@
-<h1> Profile </h1>
-<h2>Name : <%= @user.name %> </h2>
-<h2>Email : <%= @user.email %> </h2>
-<h2>Contact : <%= @user.contact_number %> </h2>
-<% if @user.dob %>
- <h2>Date Of Birth : <%= @user.dob %> </h2>
-<% end %>
-<% if @user.specialization_id %>
- <h2> <% Specialization.find(@user.specialization_id)   %></h2>
-<% end %>
+<div style="background:#fff; padding:35px; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,.15); max-width:700px; margin:auto;">
+
+  <h1 style="text-align:center; color:#2c3e50; margin-bottom:30px;">
+    My Profile
+  </h1>
+
+  <div style="margin-bottom:18px; padding:15px; background:#f8f9fa; border-radius:8px;">
+    <strong style="color:#34495e;">Name</strong><br>
+    <span style="font-size:18px;"><%= @user.name %></span>
+  </div>
+
+  <div style="margin-bottom:18px; padding:15px; background:#f8f9fa; border-radius:8px;">
+    <strong style="color:#34495e;">Email</strong><br>
+    <span style="font-size:18px;"><%= @user.email %></span>
+  </div>
+
+  <div style="margin-bottom:18px; padding:15px; background:#f8f9fa; border-radius:8px;">
+    <strong style="color:#34495e;">Contact Number</strong><br>
+    <span style="font-size:18px;"><%= @user.contact_number %></span>
+  </div>
+
+  <% if @user.dob.present? %>
+    <div style="margin-bottom:18px; padding:15px; background:#f8f9fa; border-radius:8px;">
+      <strong style="color:#34495e;">Date of Birth</strong><br>
+      <span style="font-size:18px;"><%= @user.dob.strftime("%d %B %Y") %></span>
+    </div>
+  <% end %>
+
+  <% if @user.specialization_id.present? %>
+    <div style="margin-bottom:18px; padding:15px; background:#f8f9fa; border-radius:8px;">
+      <strong style="color:#34495e;">Specialization</strong><br>
+      <span style="font-size:18px;">
+        <%= Specialization.find(@user.specialization_id).name %>
+      </span>
+    </div>
+  <% end %>
+
+  <div style="text-align:center; margin-top:30px;">
+    <%= link_to "Edit Profile", edit_user_path(@user),
+        style:"display:inline-block; background:#007bff; color:white; padding:12px 25px; border-radius:6px; text-decoration:none; font-weight:bold;" %>
+  </div>
+
+</div>

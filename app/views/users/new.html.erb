@@ -1,0 +1,116 @@
+<div style="display:flex; justify-content:center; align-items:center; min-height:100vh; background:#f4f7fb; font-family:Arial, sans-serif;">
+
+  <div style="width:420px; background:#fff; padding:35px; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,0.15);">
+    <h1 style="text-align:center; color:#2c3e50; margin-bottom:25px;">
+      City Care Hospital
+    </h1>
+    <h1 style="text-align:center; color:#2c3e50; margin-bottom:25px;">
+      Sign Up
+    </h1>
+
+    <% if flash.now[:error] %>
+      <% flash.now[:error].each do |err| %>
+        <p style="background:#ffe5e5; color:#d63031; padding:10px; border-radius:6px; text-align:center; margin-bottom:15px;">
+          <%= err %>
+        </p>
+      <% end %>
+    <% end %>
+
+    <%= form_with(model: @user, url: users_path, local: true) do |f| %>
+
+      <div style="margin-bottom:18px;">
+        <%= f.label :name, style:"display:block; font-weight:bold; margin-bottom:6px; color:#34495e;" %>
+        <%= f.text_field :name,
+            placeholder:"Enter your Name",
+            style:"width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:15px; box-sizing:border-box;" %>
+      </div>
+
+      <div style="margin-bottom:18px;">
+        <%= f.label :contact_number, "Contact Number", style:"display:block; font-weight:bold; margin-bottom:6px; color:#34495e;" %>
+        <%= f.phone_field :contact_number,
+            placeholder:"Enter your Contact Number",
+            style:"width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:15px; box-sizing:border-box;" %>
+      </div>
+
+      <div style="margin-bottom:18px;">
+        <%= f.label :email, style:"display:block; font-weight:bold; margin-bottom:6px; color:#34495e;" %>
+        <%= f.email_field :email,
+            placeholder:"Enter your Email",
+            style:"width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:15px; box-sizing:border-box;" %>
+      </div>
+
+      <div style="margin-bottom:18px;">
+        <%= f.label :password, style:"display:block; font-weight:bold; margin-bottom:6px; color:#34495e;" %>
+        <%= f.password_field :password,
+            placeholder:"Enter your Password",
+            style:"width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:15px; box-sizing:border-box;" %>
+      </div>
+
+      <div style="margin-bottom:18px;">
+        <label style="display:block; font-weight:bold; margin-bottom:6px; color:#34495e;">
+          User Type
+        </label>
+
+        <%= select_tag :type,
+              options_for_select([
+                ["Patient", "Patient"],
+                ["Doctor", "Doctor"]
+              ]),
+              prompt: "Select User Type",
+              onchange: "show_content_depent_on_type(this.value)",
+              style:"width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:15px; background:white;" %>
+      </div>
+
+      <div id="patient" style="display:none; margin-bottom:18px;">
+        <%= f.label :dob, "Date of Birth", style:"display:block; font-weight:bold; margin-bottom:6px; color:#34495e;" %>
+
+        <%= f.date_field :dob,
+            max: Date.today.to_s,
+            style:"width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:15px; box-sizing:border-box;" %>
+      </div>
+
+      <div id="doctor" style="display:none; margin-bottom:18px;">
+        <%= f.label :specialization_id, style:"display:block; font-weight:bold; margin-bottom:6px; color:#34495e;" %>
+
+        <%= f.number_field :specialization_id,
+            placeholder:"Enter Specialization ID",
+            style:"width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:15px; box-sizing:border-box;" %>
+      </div>
+
+      <div>
+        <%= submit_tag "Sign Up",
+            style:"width:100%; background:#007bff; color:white; border:none; padding:12px; border-radius:6px; font-size:16px; font-weight:bold; cursor:pointer;" %>
+      </div>
+
+    <% end %>
+
+    <div style="text-align:center; margin-top:25px;">
+      <span style="color:#555;">Already have an account?</span>
+      <%= link_to "Sign In", new_session_path,
+          style:"color:#007bff; text-decoration:none; font-weight:bold;" %>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function show_content_depent_on_type(type){
+
+  let patientDiv = document.getElementById("patient");
+  let doctorDiv = document.getElementById("doctor");
+
+  if(type === "Patient"){
+    patientDiv.style.display = "block";
+    doctorDiv.style.display = "none";
+  }
+  else if(type === "Doctor"){
+    patientDiv.style.display = "none";
+    doctorDiv.style.display = "block";
+  }
+  else{
+    patientDiv.style.display = "none";
+    doctorDiv.style.display = "none";
+  }
+}
+</script>

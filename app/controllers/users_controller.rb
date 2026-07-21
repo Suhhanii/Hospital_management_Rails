@@ -7,12 +7,26 @@ class UsersController < ApplicationController
   end
 
   def create
+    # byebug
+    # @user = User.new(name: params[:user][:name], email: params[:user][:email], password_digest: params[:user][:password], contact_number: params[:user][:contact], type: params[:type])
+
     @user = User.new(user_params)
+    # byebug
+    if params[:type] == "Patient"
+     @user.dob = params[:user][:dob]
+     @user = @user.becomes!(Patient)
+    else
+      @user.specialization_id = params[:user][:specialization_id]
+      @user.status = true
+      @user = @user.becomes!(Doctor)
+    end
 
     if @user.save
-      session[:user_id] = @user.id
-      redirect_to root_path, notice: "Account created successfully."
+      flash[:alert] = "Account Created Successfully"
+      redirect_to new_session_path
     else
+      flash.now[:error] = @user.errors.full_messages
+      # byebug
       render :new, status: :unprocessable_entity
     end
   end
@@ -28,7 +42,9 @@ class UsersController < ApplicationController
       :name,
       :email,
       :password,
-      :password_confirmation,
+      :contact_number,
+      :specialization_id,
+      :dob,
       :type
     )
   end

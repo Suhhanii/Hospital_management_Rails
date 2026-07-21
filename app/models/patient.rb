@@ -1,4 +1,5 @@
 class Patient < User
+  has_secure_password
   has_many :appointments, dependent: :destroy
   # has_many :doctors, through: :appointments
 
@@ -10,6 +11,7 @@ class Patient < User
   # validate if: :contact_number do
   #   errors.add(:contact_number, "should be 10 digits only") unless contact_number.to_s.match?(/\A\d{10}\z/)
   # end
+  validates :dob, presence: true
   validate if: :dob do
      errors.add(:dob, "date of birth should be in past") unless dob.past?
   end

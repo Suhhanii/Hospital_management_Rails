@@ -1,66 +1,146 @@
-<h1>Your <%= @status %> Appointments</h1>
+<div style="background:#fff; padding:35px; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,.15);">
+
+  <h1 style="text-align:center; color:#2c3e50; margin-bottom:30px;">
+    Your <%= @status %> Appointments
+  </h1>
+
   <% if @scheduled.present? || @canceled.present? || @completed.present? %>
 
+    <!-- Scheduled Appointments -->
+
     <% if @scheduled.present? %>
-      <h3>Schedule Appointments </h3>
+
+      <h2 style="color:#007bff; margin-bottom:15px;">
+        Scheduled Appointments
+      </h2>
+
       <% @scheduled.each do |a| %>
-        <h3>
-        Appointment at : <%= a.appointment_at %>
-        status is : <b><%= a.status %></b>
-        with 
-        <% if current_user.is_a?(Doctor) %>
-        <%= Patient.find(a.patient_id).name %>
-        <% else %>
-        <%= Doctor.find(a.doctor_id).name %>
-        <% end %>
-        </h3>
-        <br>
+       <%= link_to appointment_path(a.id), style: "text-decoration:none; color:inherit;" do %>
+        <div style="background:#f8f9fa;
+            padding:18px;
+            margin-bottom:18px;
+            border-radius:8px;
+            box-shadow:0 2px 8px rgba(0,0,0,.08);">
+
+          <p><strong>Appointment:</strong> <%= a.appointment_at.strftime("%d %b %Y, %I:%M %p") %></p>
+
+          <p>
+            <strong>Status:</strong>
+
+            <span style="background:#007bff; color:white; padding:4px 10px; border-radius:20px;">
+              <%= a.status.capitalize %>
+            </span>
+          </p>
+
+          <p>
+            <strong>With:</strong>
+
+            <% if current_user.is_a?(Doctor) %>
+              <%= Patient.find(a.patient_id).name %>
+            <% else %>
+              <%= Doctor.find(a.doctor_id).name %>
+            <% end %>
+
+          </p>
+
+        </div>
+       <% end %>
       <% end %>
+
     <% end %>
+
+
+
+    <!-- Cancelled -->
 
     <% if @canceled.present? %>
-      <h3> Cancel Appointments </h3>
+
+      <h2 style="color:#dc3545; margin:35px 0 15px;">
+        Cancelled Appointments
+      </h2>
+
       <% @canceled.each do |a| %>
-        <h3>
-         Appointment at : <%= a.appointment_at %>
-         status is : <b><%= a.status %></b>
-         with 
-         <% if current_user.is_a?(Doctor) %>
-         <%= Patient.find(a.patient_id).name %>
-         <% else %>
-         <%= Doctor.find(a.doctor_id).name %>
-         <% end %>
-         </h3>
-         <br>
+
+        <div style="background:#f8f9fa; border-left:6px solid #dc3545; padding:18px; margin-bottom:18px; border-radius:8px;">
+
+          <p><strong>Appointment:</strong> <%= a.appointment_at.strftime("%d %b %Y, %I:%M %p") %></p>
+
+          <p>
+            <strong>Status:</strong>
+
+            <span style="background:#dc3545; color:white; padding:4px 10px; border-radius:20px;">
+              <%= a.status.capitalize %>
+            </span>
+          </p>
+
+          <p>
+            <strong>With:</strong>
+
+            <% if current_user.is_a?(Doctor) %>
+              <%= Patient.find(a.patient_id).name %>
+            <% else %>
+              <%= Doctor.find(a.doctor_id).name %>
+            <% end %>
+
+          </p>
+
+        </div>
+
       <% end %>
+
     <% end %>
 
+
+
+    <!-- Completed -->
+
     <% if @completed.present? %>
-      <h3> Completed Appointments </h3>
+
+      <h2 style="color:#28a745; margin:35px 0 15px;">
+        Completed Appointments
+      </h2>
+
       <% @completed.each do |a| %>
-        <h3>
-        Appointment at : <%= a.appointment_at %>
-        status is : <b><%= a.status %></b>
-        with 
-        <% if current_user.is_a?(Doctor) %>
-        <%= Patient.find(a.patient_id).name %>
-        <% else %>
-        <%= Doctor.find(a.doctor_id).name %>
-        <% end %>
-        </h3>
-        <br>
+
+        <div style="background:#f8f9fa; border-left:6px solid #28a745; padding:18px; margin-bottom:18px; border-radius:8px;">
+
+          <p><strong>Appointment:</strong> <%= a.appointment_at.strftime("%d %b %Y, %I:%M %p") %></p>
+
+          <p>
+            <strong>Status:</strong>
+
+            <span style="background:#28a745; color:white; padding:4px 10px; border-radius:20px;">
+              <%= a.status.capitalize %>
+            </span>
+          </p>
+
+          <p>
+            <strong>With:</strong>
+
+            <% if current_user.is_a?(Doctor) %>
+              <%= Patient.find(a.patient_id).name %>
+            <% else %>
+              <%= Doctor.find(a.doctor_id).name %>
+            <% end %>
+
+          </p>
+
+        </div>
+
       <% end %>
+
     <% end %>
 
   <% else %>
-     <h2> There is no Appointments </h2>
+
+    <div style="text-align:center; padding:60px 20px;">
+
+      <h2 style="color:#888;">
+        No Appointments Found
+      </h2>
+
+    </div>
+
   <% end %>
 
-
-<%#
-@doc = Doctor.find(session[:user_id])
-@a = @doc.appointments
-@today_schedule_app = @a.todays_appointments("scheduled")
-@today_cancel_app = @a.todays_appointments("canceled")
-@today_completed_app = @a.todays_appointments("completed")
-%>
+</div>

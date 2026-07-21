@@ -1,0 +1,81 @@
+
+<h1> Sign Up Form </h1>
+  <% if flash.now[:error] %>
+      <% flash.now[:error].each do |err| %>
+      <p style="color:red;" ><%= err %></p>
+      <% end %>
+  <% end %>
+
+<%= form_with(model: @user, url: users_path) do |f| %>
+    <div class="row">
+      <%= f.label :name %><br>
+      <%= f.text_field :name, placeholder: "Enter your Name" %>
+    </div>
+    <br>
+    <div class="row">
+      <%= f.label :contact %><br>
+      <%= f.phone_field :contact_number, placeholder: "Enter your Contact" %>
+    </div>
+    <br>
+    <div class="row">
+      <%= f.label :email %><br>
+      <%= f.email_field :email, placeholder: "Enter your Email" %>
+    </div>
+    <br>
+    <div class="row">
+      <%= f.label :password %><br>
+      <%= f.password_field :password, placeholder: "Enter your Password" %>
+    </div>
+    <br>
+    <span>
+    <%# <h3> Type : </h3> %>
+    <%= select_tag :type, options_for_select(
+      [
+      ["Patient", "Patient"],
+      ["Doctor", "Doctor"]
+      ]
+    ),
+    prompt: "Select User Type" ,
+    onchange: "show_content_depent_on_type(this.value)"
+    %>
+  </span>
+  <br>
+  <div id="patient" style="display:none;">
+    <br>
+    <div class="row">
+      <%= f.label :dob, "Date Of Birth" %><br>
+      <%= f.date_field :dob, max: Date.today.to_s %>
+    </div>
+  </div>
+  <div id="doctor" style="display:none;">
+    <br>
+    <div class="row">
+      <%= f.label :specialization_id %><br>
+      <%= f.number_field :specialization_id, placeholder: "Enter your specialization id" %>
+    </div>
+  </div>
+  <br>
+  <div>
+   <%= submit_tag 'Sign Up' %>
+ </div>
+<% end %>
+
+<script>
+function show_content_depent_on_type(type){
+ <%# console.log(type) %>
+
+ let patientDiv = document.getElementById("patient")
+ let doctorDiv = document.getElementById("doctor")
+ console.log(type)
+ if (type == "Patient")
+ {
+   doctorDiv.style.display = "none";
+   patientDiv.style.display = "block";
+ }
+ else
+ {
+  patientDiv.style.display = "none";
+  doctorDiv.style.display = "block";
+ }
+}
+</script>

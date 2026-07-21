@@ -32,6 +32,8 @@ Rails.application.routes.draw do
   resources :working_hours
   resources :specializations
 
+  get "/signup", to: "users#new"
+
 
   # get  "sign_in",  to: "authentication#new"
 

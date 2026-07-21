@@ -4,17 +4,18 @@
     <% if @scheduled.present? %>
       <h3>Schedule Appointments </h3>
       <% @scheduled.each do |a| %>
-        <h3>
+        <h3 class="appointment" style="border-style:solid; padding:10px;" onclick="updateappointment(this)" >
         Appointment at : <%= a.appointment_at %>
         status is : <b><%= a.status %></b>
         with 
         <% if current_user.is_a?(Doctor) %>
         <%= Patient.find(a.patient_id).name %>
+        <%# <%= link_to "Complete", root_path %>
         <% else %>
+        Dr.
         <%= Doctor.find(a.doctor_id).name %>
         <% end %>
         </h3>
-        <br>
       <% end %>
     <% end %>
 
@@ -56,11 +57,17 @@
      <h2> There is no Appointments </h2>
   <% end %>
 
+<style>
+.appointment:hover {
+  background-color: lightyellow;
+}
 
-<%#
-@doc = Doctor.find(session[:user_id])
-@a = @doc.appointments
-@today_schedule_app = @a.todays_appointments("scheduled")
-@today_cancel_app = @a.todays_appointments("canceled")
-@today_completed_app = @a.todays_appointments("completed")
-%>
+</style>
+
+<script>
+  function updateappointment(a)
+  {
+    console.log(a)
+    console.log("hello")
+  }
+</script>

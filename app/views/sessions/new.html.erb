@@ -2,7 +2,7 @@
   <h1>Sign In</h1>
 
   <% if flash[:alert] %>
-    <p class="text-danger"><%= flash[:alert] %></p>
+    <p style="color:red;" ><%= flash[:alert] %></p>
   <% end %>
 
   <%= form_with(model: @user, url: sessions_path, local: true) do |f| %>
@@ -22,4 +22,6 @@
     </div>
 
   <% end %>
+  <br>
+  <h3>New User ? <%= link_to 'Sign-up', new_user_path %> </h3>
 </div>

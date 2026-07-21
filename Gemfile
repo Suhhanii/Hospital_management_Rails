@@ -67,3 +67,12 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+
+
+gem 'turbolinks', '~> 5'
+gem 'jquery-rails'
+gem 'bootstrap-sass', '~> 3.4.1'
+gem 'sassc-rails', '>= 2.1.0'
+gem 'font-awesome-rails'
+gem 'popper_js', '~> 1.12.9'

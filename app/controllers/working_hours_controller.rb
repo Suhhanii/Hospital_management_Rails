@@ -6,4 +6,13 @@ class WorkingHoursController < ApplicationController
 
   def edit
   end
+
+  def show
+    # byebug
+    @working_hour = WorkingHour.find(params[:id])
+  end
+
+  def new
+    @working_hour = WorkingHour.new
+  end
 end

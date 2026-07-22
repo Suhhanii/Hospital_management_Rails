@@ -1,0 +1,76 @@
+<% if flash.now[:error] %>
+  <% flash.now[:error].each do |err| %>
+    <p style="background:#ffe5e5; color:#d63031; padding:10px; border-radius:6px; text-align:center; margin-bottom:15px;">
+          <%= err %>
+    </p>
+  <% end %>
+<% end %>
+<div style="display:flex; justify-content:center; align-items:center; min-height:80vh;">
+
+  <div style="width:450px; background:#fff; padding:35px; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,.15);">
+
+    <h1 style="text-align:center; color:#2c3e50; margin-bottom:30px;">
+      Edit Profile
+    </h1>
+
+    <%= form_with(model: current_user, url: user_path(current_user), local: true) do |t| %>
+
+      <div style="margin-bottom:18px;">
+        <%= t.label :name, style:"display:block; font-weight:bold; margin-bottom:6px; color:#34495e;" %>
+
+        <%= t.text_field :name,
+            style:"width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:15px; box-sizing:border-box;" %>
+      </div>
+
+      <div style="margin-bottom:18px;">
+        <%= t.label :email, style:"display:block; font-weight:bold; margin-bottom:6px; color:#34495e;" %>
+
+        <%= t.email_field :email,
+            style:"width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:15px; box-sizing:border-box;" %>
+      </div>
+
+      <div style="margin-bottom:18px;">
+        <%= t.label :contact_number, "Contact Number", style:"display:block; font-weight:bold; margin-bottom:6px; color:#34495e;" %>
+
+        <%= t.phone_field :contact_number,
+            style:"width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:15px; box-sizing:border-box;" %>
+      </div>
+
+      <% if current_user.is_a?(Doctor) %>
+
+        <div style="margin-bottom:18px;">
+          <%= t.label :specialization_id, style:"display:block; font-weight:bold; margin-bottom:6px; color:#34495e;" %>
+
+          <%= t.number_field :specialization_id,
+              style:"width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:15px; box-sizing:border-box;" %>
+        </div>
+
+      <% else %>
+
+        <div style="margin-bottom:18px;">
+          <%= t.label :dob, "Date of Birth", style:"display:block; font-weight:bold; margin-bottom:6px; color:#34495e;" %>
+
+          <%= t.date_field :dob,
+              style:"width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:15px; box-sizing:border-box;" %>
+        </div>
+
+      <% end %>
+
+      <div style="margin-bottom:25px;">
+        <%= t.label :password, style:"display:block; font-weight:bold; margin-bottom:6px; color:#34495e;" %>
+
+        <%= t.password_field :password,
+            placeholder:"Enter New Password",
+            style:"width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:15px; box-sizing:border-box;" %>
+      </div>
+
+      <div>
+        <%= t.submit "Update Profile",
+            style:"width:100%; background:#007bff; color:white; border:none; padding:12px; border-radius:6px; font-size:16px; font-weight:bold; cursor:pointer;" %>
+      </div>
+
+    <% end %>
+
+  </div>
+
+</div>

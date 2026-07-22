@@ -35,6 +35,8 @@ Rails.application.routes.draw do
   get "/signup", to: "users#new"
 
 
+
+
   # get  "sign_in",  to: "authentication#new"
 
   # post "sign_in",  to: "authentication#sign_in"

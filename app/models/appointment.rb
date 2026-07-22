@@ -17,11 +17,23 @@ class Appointment < ApplicationRecord
 
   scope :todays_appointments, ->(status) { where(appointment_at: Date.today.all_day, status: status) }
 
-  scope :upcoming_appointments, -> { scheduled.where("appointment_at > ?", Date.today) }
+  # scope :upcoming_scheduled_appointments, -> { scheduled.where("appointment_at > ?", Date.today) }
 
   scope :patient_visit_most, -> { includes(:patient).completed.group("patient_id").order("COUNT(appointments.id) DESC").references(:appointments) }
 
   scope :overdues, -> { scheduled.where("appointment_at < ?", Time.now) }
+
+  scope :today, ->{
+    where(appointment_at: Date.today.all_day)
+  }
+
+  scope :upcoming, ->{
+    where("appointment_at > ?",Date.tomorrow)
+  }
+
+  scope :past, ->{
+    where("appointment_at < ?",Date.today)
+  }
 
   def reschedule?
     refer_to.present?

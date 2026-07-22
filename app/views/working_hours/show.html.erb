@@ -1,0 +1,15 @@
+
+<h1>Working Hour</h1>
+Day Of Week is :
+<%= @working_hour.day_of_week.capitalize %>
+Start Time :
+<%= @working_hour.start_time.strftime("%I:%M %p") %>
+End Time :
+<%= @working_hour.end_time.strftime("%I:%M %p") %>
+
+<%= link_to "Add New", new_working_hour_path %>
+
+<%= link_to "Update", edit_working_hour_path(@working_hour) %>
+
+<%= button_to "Delete", working_hour_path(@working_hour), method: :delete %>
+

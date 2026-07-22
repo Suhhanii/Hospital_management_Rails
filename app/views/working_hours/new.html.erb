@@ -1,0 +1,18 @@
+<h1>Working Hour </h1>
+
+<%= form_with(model: @working_hour, url: working_hours_path) do |t| %>
+ <div>
+ <%= t.label :day_of_week %>
+ <%= t.number_field :day_of_week %>
+ </div>
+ <div>
+ <%= t.label :start_time %>
+ <%= t.time_field :start_time %>
+ </div>
+ <div>
+ <%= t.label :end_time %>
+ <%= t.time_field :end_time %>
+ </div>
+
+ <%= t.submit "Create" %>
+<% end %>

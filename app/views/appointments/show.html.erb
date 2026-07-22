@@ -9,7 +9,7 @@
     <p style="font-size:18px; margin-bottom:18px;">
       <strong>Appointment At</strong><br>
       <span style="color:#555;">
-        <%= @app.appointment_at.strftime("%d %B %Y, %I:%M %p") %>
+        <%= @appointment.appointment_at.strftime("%d %B %Y, %I:%M %p") %>
       </span>
     </p>
 
@@ -17,12 +17,12 @@
       <strong>Status </strong>
       <br>
 
-      <% if @app.status == "scheduled" %>
+      <% if @appointment.status == "scheduled" %>
         <span style="background:#007bff; color:white; padding:5px 12px; border-radius:20px;">
           Scheduled
         </span>
 
-      <% elsif @app.status == "completed" %>
+      <% elsif @appointment.status == "completed" %>
 
         <span style="background:#28a745; color:white; padding:5px 12px; border-radius:20px;">
           Completed
@@ -52,9 +52,9 @@
       <span style="color:#555;">
 
         <% if current_user.is_a?(Doctor) %>
-          <%= Patient.find(@app.patient_id).name %>
+          <%= Patient.find(@appointment.patient_id).name %>
         <% else %>
-          <%= Doctor.find(@app.doctor_id).name %>
+          <%= Doctor.find(@appointment.doctor_id).name %>
         <% end %>
 
       </span>
@@ -68,19 +68,19 @@
     <% if current_user.is_a?(Doctor) %>
 
       <%= link_to "Complete",
-          edit_appointment_path(@app, action_type: "complete"),
+          edit_appointment_path(@appointment, action_type: "completed"),
           style:"background:#28a745; color:white; text-decoration:none; padding:12px 24px; border-radius:6px; font-weight:bold;" %>
 
     <% end %>
 
     <%= link_to "Cancel",
-        edit_appointment_path(@app, action_type: "cancel"),
+        edit_appointment_path(@appointment, action_type: "canceled"),
         style:"background:#dc3545; color:white; text-decoration:none; padding:12px 24px; border-radius:6px; font-weight:bold;" %>
 
-    <% if @app.appointment_at > Time.current %>
+    <% if @appointment.appointment_at > Time.current %>
 
       <%= link_to "Reschedule",
-          edit_appointment_path(@app, action_type: "reschedule"),
+          edit_appointment_path(@appointment, action_type: "reschedule"),
           style:"background:#007bff; color:white; text-decoration:none; padding:12px 24px; border-radius:6px; font-weight:bold;" %>
 
     <% end %>

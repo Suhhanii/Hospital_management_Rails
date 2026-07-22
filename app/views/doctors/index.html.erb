@@ -1,8 +1,32 @@
-<h2> Our Best Doctors </h2>
-<% @doctors.each do |doctor| %>
-  <h2>
-  Dr. <%= doctor.name %>
-  has specialization in <%= doctor.specialization.name %>
-  </h2>
-<% end %>
+<div style="background:#fff; padding:35px; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,.15);">
 
+  <h1 style="text-align:center; color:#2c3e50; margin-bottom:30px;">
+    Our Best Doctors
+  </h1>
+
+  <% @doctors.each do |doctor| %>
+
+    <div style="background:#f8f9fa; padding:20px; margin-bottom:20px; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,.08);">
+
+      <h2 style="color:#007bff; margin-bottom:12px;">
+        Dr. <%= doctor.name %>
+      </h2>
+
+      <p style="font-size:17px; color:#555; margin:0;">
+        <strong>Specialization:</strong>
+        <%= doctor.specialization.name %>
+      </p>
+
+    </div>
+
+  <% end %>
+
+  <% if @doctors.empty? %>
+
+    <div style="text-align:center; padding:40px;">
+      <h2 style="color:#888;">No Doctors Available</h2>
+    </div>
+
+  <% end %>
+
+</div>

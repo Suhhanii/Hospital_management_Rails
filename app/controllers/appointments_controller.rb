@@ -22,15 +22,36 @@ class AppointmentsController < ApplicationController
     end
 
   def show
-    @app = Appointment.find(params[:format])
+    # byebug
+    @app = Appointment.find(params[:id])
   end
 
   def delete
   end
 
   def edit
+    @appointment = Appointment.find(params[:id])
+    @action_type = params[:action_type]
   end
 
   def new
+  end
+
+  def update
+    @appointment = Appointment.find(params[:id])
+
+    case params[:action_type]
+    when "cancel"
+      @appointment.update(status: "canceled")
+      redirect_to @appointment, notice: "Appointment cancelled."
+
+    when "complete"
+      @appointment.update(status: "completed")
+      redirect_to @appointment, notice: "Appointment completed."
+
+    when "reschedule"
+      @appointment.update(appointment_at: params[:appointment][:appointment_at])
+      redirect_to @appointment, notice: "Appointment rescheduled."
+    end
   end
 end

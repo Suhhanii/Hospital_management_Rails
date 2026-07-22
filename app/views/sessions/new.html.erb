@@ -1,27 +1,50 @@
-<div class="text-center">
-  <h1>Sign In</h1>
+<div style="display:flex; justify-content:center; align-items:center; min-height:100vh; background:#f4f7fb; font-family:Arial, sans-serif;">
 
-  <% if flash[:alert] %>
-    <p style="color:red;" ><%= flash[:alert] %></p>
-  <% end %>
+  <div style="width:380px; background:#fff; padding:35px; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,0.15);">
+    <h1 style="text-align:center; color:#2c3e50; margin-bottom:25px;">
+      City Care Hospital
+    </h1>
+    <h1 style="text-align:center; color:#2c3e50; margin-bottom:25px;">
+      Sign In
+    </h1>
 
-  <%= form_with(model: @user, url: sessions_path, local: true) do |f| %>
+    <% if flash[:alert] %>
+      <p style="background:#ffe5e5; color:#d63031; padding:10px; border-radius:6px; text-align:center; margin-bottom:20px;">
+        <%= flash[:alert] %>
+      </p>
+    <% end %>
 
-    <div class="row">
-      <%= f.label :email %><br>
-      <%= f.email_field :email, placeholder: "Enter your email" %>
+    <%= form_with(model: @user, url: sessions_path, local: true) do |f| %>
+
+      <div style="margin-bottom:18px;">
+        <%= f.label :email, style: "display:block; font-weight:bold; margin-bottom:6px; color:#34495e;" %>
+
+        <%= f.email_field :email,
+            placeholder: "Enter your email",
+            style: "width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:15px; box-sizing:border-box;" %>
+      </div>
+
+      <div style="margin-bottom:22px;">
+        <%= f.label :password, style: "display:block; font-weight:bold; margin-bottom:6px; color:#34495e;" %>
+
+        <%= f.password_field :password,
+            placeholder: "Enter your password",
+            style: "width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:15px; box-sizing:border-box;" %>
+      </div>
+
+      <div>
+        <%= f.submit "Sign In",
+            style: "width:100%; background:#007bff; color:white; border:none; padding:12px; border-radius:6px; font-size:16px; font-weight:bold; cursor:pointer;" %>
+      </div>
+
+    <% end %>
+
+    <div style="text-align:center; margin-top:25px;">
+      <span style="color:#555;">New User?</span>
+      <%= link_to "Sign Up", new_user_path,
+          style: "color:#007bff; text-decoration:none; font-weight:bold;" %>
     </div>
 
-    <div class="row">
-      <%= f.label :password %><br>
-      <%= f.password_field :password, placeholder: "Enter your password" %>
-    </div>
+  </div>
 
-    <div class="row">
-      <%= f.submit "Sign In" %>
-    </div>
-
-  <% end %>
-  <br>
-  <h3>New User ? <%= link_to 'Sign-up', new_user_path %> </h3>
 </div>

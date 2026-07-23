@@ -1,14 +1,62 @@
+<div style="background:#fff; padding:35px; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,.15); max-width:700px; margin:auto;">
 
-<h1>Working Hour</h1>
-Day Of Week is :
-<%= @working_hour.day_of_week.capitalize %>
-Start Time :
-<%= @working_hour.start_time.strftime("%I:%M %p") %>
-End Time :
-<%= @working_hour.end_time.strftime("%I:%M %p") %>
+  <h1 style="text-align:center; color:#2c3e50; margin-bottom:30px;">
+    Working Hour Details
+  </h1>
 
+  <div style="background:#f8f9fa; padding:25px; border-radius:10px; margin-bottom:30px;">
 
-<%= link_to "Update", edit_working_hour_path(@working_hour) %>
+    <p style="font-size:18px; margin-bottom:18px;">
+      <strong>Day of Week</strong><br>
+      <span style="color:#555;">
+        <%= @working_hour.day_of_week.capitalize %>
+      </span>
+    </p>
 
-<%= button_to "Delete", working_hour_path(@working_hour), method: :delete %>
+    <p style="font-size:18px; margin-bottom:18px;">
+      <strong>Start Time</strong><br>
+      <span style="color:#555;">
+        <%= @working_hour.start_time.strftime("%I:%M %p") %>
+      </span>
+    </p>
 
+    <p style="font-size:18px;">
+      <strong>End Time</strong><br>
+      <span style="color:#555;">
+        <%= @working_hour.end_time.strftime("%I:%M %p") %>
+      </span>
+    </p>
+
+  </div>
+
+    <div style="display:flex; justify-content:center; gap:15px;">
+
+    <%= button_to "Update",
+        edit_working_hour_path(@working_hour),
+        method: :get,
+        form: { style: "display:inline;" },
+        style:"background:#0d6efd;
+                color:white;
+                border:none;
+                padding:12px 28px;
+                border-radius:6px;
+                font-size:16px;
+                font-weight:bold;
+                cursor:pointer;" %>
+
+    <%= button_to "Delete",
+        working_hour_path(@working_hour),
+        method: :delete,
+        form: { style: "display:inline;" },
+        style:"background:#dc3545;
+                color:white;
+                border:none;
+                padding:12px 28px;
+                border-radius:6px;
+                font-size:16px;
+                font-weight:bold;
+                cursor:pointer;" %>
+
+    </div>
+
+</div>

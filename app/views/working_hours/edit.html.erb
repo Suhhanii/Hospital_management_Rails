@@ -1,20 +1,45 @@
-<h1>WorkingHours</h1>
-<%= form_with(model: @working_hour, url: working_hour_path(@working_hour)) do |t| %>
+<div style="display:flex; justify-content:center; align-items:center; min-height:80vh;">
 
-<div>
-  <%= t.label :day_of_week %>
-  <%= t.text_field :day_of_week %>
+  <div style="width:450px; background:#fff; padding:35px; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,.15);">
+
+    <h1 style="text-align:center; color:#2c3e50; margin-bottom:30px;">
+      Update Working Hour
+    </h1>
+
+    <%= form_with(model: @working_hour, url: working_hour_path(@working_hour), local: true) do |t| %>
+
+      <div style="margin-bottom:18px;">
+        <%= t.label :day_of_week,
+            style:"display:block; font-weight:bold; margin-bottom:6px; color:#34495e;" %>
+
+        <%= t.text_field :day_of_week,
+            placeholder:"Enter Day (e.g. Monday)",
+            style:"width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:15px; box-sizing:border-box;" %>
+      </div>
+
+      <div style="margin-bottom:18px;">
+        <%= t.label :start_time,
+            style:"display:block; font-weight:bold; margin-bottom:6px; color:#34495e;" %>
+
+        <%= t.time_field :start_time,
+            style:"width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:15px; box-sizing:border-box;" %>
+      </div>
+
+      <div style="margin-bottom:25px;">
+        <%= t.label :end_time,
+            style:"display:block; font-weight:bold; margin-bottom:6px; color:#34495e;" %>
+
+        <%= t.time_field :end_time,
+            style:"width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:15px; box-sizing:border-box;" %>
+      </div>
+
+      <div>
+        <%= t.submit "Update Working Hour",
+            style:"width:100%; background:#007bff; color:white; border:none; padding:12px; border-radius:6px; font-size:16px; font-weight:bold; cursor:pointer;" %>
+      </div>
+
+    <% end %>
+
+  </div>
+
 </div>
-
-<div>
-  <%= t.label :start_time %>
-  <%= t.text_field :start_time %>
-</div>
-
-<div>
-  <%= t.label :end_time %>
-  <%= t.text_field :end_time %>
-</div>
-
-<%= t.submit "Update" %>
-<% end %>

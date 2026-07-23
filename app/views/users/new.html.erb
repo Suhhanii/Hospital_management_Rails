@@ -50,19 +50,14 @@
         <label style="display:block; font-weight:bold; margin-bottom:6px; color:#34495e;">
           User Type
         </label>
-<%#
-        <%= select_tag :type,
-              options_for_select([
-                ["Patient", "Patient"],
-                ["Doctor", "Doctor"]
-              ]),
-              prompt: "Select User Type",
-              onchange: "show_content_depent_on_type(this.value)",
-              style:"width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:15px; background:white;" %>
-        <%= f.select :type,
-              ["Patient","Doctor"],
-              {},
-              { onchange: "show_content_depent_on_type(this.value)" } %>
+          <%= f.select :type,
+                ["Patient", "Doctor"],
+                {}, 
+                {
+                  onchange: "show_content_depent_on_type(this.value)",
+                  style: "width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:15px; background:white; box-sizing:border-box;"
+                } 
+          %>
       </div>
 
       <div id="patient" style="display:none; margin-bottom:18px;">

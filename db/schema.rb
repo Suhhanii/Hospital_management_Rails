@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_22_101059) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_22_100752) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -27,6 +27,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_22_101059) do
     t.index ["doctor_id"], name: "index_appointments_on_doctor_id"
     t.index ["patient_id", "appointment_at"], name: "index_appointments_on_patient_id_and_appointment_at", unique: true
     t.index ["patient_id"], name: "index_appointments_on_patient_id"
+  end
+
+  create_table "patients", force: :cascade do |t|
+    t.string "contact_number"
+    t.datetime "created_at", null: false
+    t.date "dob", null: false
+    t.string "email"
+    t.string "name", null: false
+    t.string "password"
+    t.datetime "updated_at", null: false
+    t.index ["contact_number"], name: "index_patients_on_contact_number"
+    t.index ["email"], name: "index_patients_on_email"
   end
 
   create_table "specializations", force: :cascade do |t|

@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
+  layout "sessions", only: [ :new ]
   include Sharable
 
-  skip_before_action :authenticate_user, only: [:new, :create]
-  before_action :redirect_if_authenticated, only: [:new, :create]
+  skip_before_action :authenticate_user, only: [ :new, :create ]
+  before_action :redirect_if_authenticated, only: [ :new, :create ]
 
   def new
     @user = User.new

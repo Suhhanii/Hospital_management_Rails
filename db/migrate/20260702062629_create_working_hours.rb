@@ -4,7 +4,7 @@ class CreateWorkingHours < ActiveRecord::Migration[8.1]
       t.integer :day_of_week
       t.time :start_time
       t.time :end_time
-      t.integer :doctor_id, null: false#, foreign_key: true
+      t.integer :doctor_id, null: false
 
       t.timestamps
     end

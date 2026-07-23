@@ -26,8 +26,8 @@ Rails.application.routes.draw do
   resources :users
   resources :appointments
 
-  resources :authentications, only: [:new,:create]
-  resources :sessions, only: [:new, :create, :destroy]
+  resources :authentications, only: [ :new, :create ]
+  resources :sessions, only: [ :new, :create, :destroy ]
 
   resources :working_hours
   resources :specializations

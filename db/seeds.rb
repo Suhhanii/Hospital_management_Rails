@@ -73,4 +73,3 @@
 # u.appointments.where(appointment_at: Date.today.all_day)
 
 # u.appointments.where("appointment_at < ?",Date.today)
-

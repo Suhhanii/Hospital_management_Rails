@@ -1,5 +1,5 @@
 class WorkingHour < ApplicationRecord
-  belongs_to :doctor, class_name: 'User', foreign_key: :doctor_id
+  belongs_to :doctor, class_name: "User", foreign_key: :doctor_id
 
   enum :day_of_week, { sunday: 0, monday: 1, tuesday: 2, wednesday: 3, thursday: 4, friday: 5, saturday: 6 }
 

@@ -4,7 +4,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true
 
-  validates :email, presence: true, uniqueness: true, format: {with: STRICT_EMAIL_REGEXP}
+  validates :email, presence: true, uniqueness: true, format: { with: STRICT_EMAIL_REGEXP }
 
   validates :contact_number, presence: true
 

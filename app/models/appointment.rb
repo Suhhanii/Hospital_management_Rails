@@ -23,16 +23,16 @@ class Appointment < ApplicationRecord
 
   scope :overdues, -> { scheduled.where("appointment_at < ?", Time.now) }
 
-  scope :today, ->{
+  scope :today, -> {
     where(appointment_at: Date.today.all_day)
   }
 
-  scope :upcoming, ->{
-    where("appointment_at > ?",Date.tomorrow)
+  scope :upcoming, -> {
+    where("appointment_at > ?", Date.tomorrow)
   }
 
-  scope :past, ->{
-    where("appointment_at < ?",Date.today)
+  scope :past, -> {
+    where("appointment_at < ?",  Date.today)
   }
 
   def reschedule?

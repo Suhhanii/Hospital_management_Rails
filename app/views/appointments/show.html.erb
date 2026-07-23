@@ -16,32 +16,15 @@
     <p style="font-size:18px; margin-bottom:18px;">
       <strong>Status </strong>
       <br>
-
-      <% if @appointment.status == "scheduled" %>
-        <span style="background:#007bff; color:white; padding:5px 12px; border-radius:20px;">
-          Scheduled
+        <span style="background:<%= get_color_code(@appointment.status)%>; color:white; padding:5px 12px; border-radius:20px;">
+          <%= @appointment.status %>
         </span>
-
-      <% elsif @appointment.status == "completed" %>
-
-        <span style="background:#28a745; color:white; padding:5px 12px; border-radius:20px;">
-          Completed
-        </span>
-
-      <% else %>
-
-        <span style="background:#dc3545; color:white; padding:5px 12px; border-radius:20px;">
-          Cancelled
-        </span>
-
-      <% end %>
-
     </p>
 
     <p style="font-size:18px;">
 
       <strong>
-        <% if current_user.is_a?(Doctor) %>
+        <% if current_user.is_a?(Doctor)  %>
           Patient
         <% else %>
           Doctor
@@ -52,15 +35,13 @@
       <span style="color:#555;">
 
         <% if current_user.is_a?(Doctor) %>
-          <%= Patient.find(@appointment.patient_id).name %>
+          <%= @appointment.patient.name %>
         <% else %>
-          <%= Doctor.find(@appointment.doctor_id).name %>
+          <%= @appointment.doctor.name %>
         <% end %>
 
       </span>
-
     </p>
-
   </div>
 
   <div style="display:flex; justify-content:center; gap:15px; flex-wrap:wrap;">
@@ -69,22 +50,32 @@
 
       <%= link_to "Complete",
           edit_appointment_path(@appointment, action_type: "completed"),
-          style:"background:#28a745; color:white; text-decoration:none; padding:12px 24px; border-radius:6px; font-weight:bold;" %>
+          style:"background:#007bff;", class: "buttonstyle" %>
 
     <% end %>
 
     <%= link_to "Cancel",
         edit_appointment_path(@appointment, action_type: "canceled"),
-        style:"background:#dc3545; color:white; text-decoration:none; padding:12px 24px; border-radius:6px; font-weight:bold;" %>
+        style:"background:#dc3545;", class: "buttonstyle"%>
 
     <% if @appointment.appointment_at > Time.current %>
 
       <%= link_to "Reschedule",
           edit_appointment_path(@appointment, action_type: "reschedule"),
-          style:"background:#007bff; color:white; text-decoration:none; padding:12px 24px; border-radius:6px; font-weight:bold;" %>
+          style:"background:#007bff;", class: "buttonstyle"%>
 
     <% end %>
 
   </div>
-
 </div>
+
+<style>
+
+.buttonstyle{
+  color:white;
+  text-decoration:none;
+  padding:12px 24px;
+  border-radius:6px;
+  font-weight:bold;
+}
+</style>

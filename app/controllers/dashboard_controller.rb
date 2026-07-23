@@ -8,7 +8,6 @@ class DashboardController < ApplicationController
       @today_schedule_app = @appointments.todays_appointments("scheduled")
       @today_cancel_app   = @appointments.todays_appointments("canceled")
       @today_completed_app = @appointments.todays_appointments("completed")
-
     elsif current_user.is_a?(Patient)
     end
   end

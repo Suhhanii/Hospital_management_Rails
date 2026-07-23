@@ -1,2 +1,14 @@
-<h1>Appointments#new</h1>
-<p>Find me in app/views/appointments/new.html.erb</p>
+<h1>Book Appointment</h1>
+<%= form_with(model: @appointment, url: appointments_path) do |t| %>
+  <div>
+    <%= t.label :appointment_at %>
+    <%= t.datetime_local_field :appointment_at %>
+  </div>
+  <div>
+    <%= t.label :doctor_id %>
+    <%= t.number_field :doctor_id, min: 0 %>
+  </div>
+  <div>
+    <%= t.submit "Create" %>
+  </div>
+<% end %>

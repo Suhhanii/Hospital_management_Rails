@@ -45,33 +45,70 @@
     </div>
   </div>
 
-      <% @appointments.each do |a| %>
-       <%= link_to appointment_path(a.id), style: "text-decoration:none; color:inherit;" do %>
-        <div style="background:#f8f9fa;
-            border-left:6px solid <%= get_color_code(a.status)%>;
-            padding:18px;
-            margin-bottom:18px;
-            border-radius:8px;
-            box-shadow:0 2px 8px rgba(0,0,0,.08);">
+    <% @appointments.each do |a| %>
 
-          <p><strong>Appointment:</strong> <%= a.appointment_at.strftime("%d %b %Y, %I:%M %p") %></p>
-          <p>
-            <strong>Status:</strong>
-            <span style="background:<%= get_color_code(a.status)%>; color:white; padding:4px 10px; border-radius:20px;">
+      <%= button_to appointment_show_path,
+          params: { id: a.id },
+          method: :post,
+          style: "width:100%;
+                  border:none;
+                  background:none;
+                  padding:0;
+                  margin-bottom:20px;
+                  cursor:pointer;
+                  text-align:left;" do %>
+
+        <div style="background:#fff;
+                    border-left:6px solid <%= get_color_code(a.status) %>;
+                    border-radius:12px;
+                    padding:22px;
+                    box-shadow:0 8px 20px rgba(0,0,0,.12);
+                    transition:0.3s;">
+
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+
+            <h3 style="margin:0; color:#2c3e50;">
+              Appointment
+            </h3>
+
+            <span style="background:<%= get_color_code(a.status) %>;
+                        color:white;
+                        padding:6px 14px;
+                        border-radius:20px;
+                        font-size:14px;
+                        font-weight:bold;">
               <%= a.status.capitalize %>
             </span>
+
+          </div>
+
+          <hr style="border:none; border-top:1px solid #eee; margin-bottom:18px;">
+
+          <p style="margin-bottom:12px; color:#555;">
+            <strong>Date & Time:</strong><br>
+            <%= a.appointment_at.strftime("%d %b %Y, %I:%M %p") %>
           </p>
-          <p>
-            <strong>With:</strong>
+
+          <p style="margin-bottom:12px; color:#555;">
+            <strong>
+              <%= current_user.is_a?(Doctor) ? "Patient" : "Doctor" %>:
+            </strong><br>
+
             <% if current_user.is_a?(Doctor) %>
               <%= a.patient.name %>
             <% else %>
-              <%= a.doctor.name %>
+              Dr. <%= a.doctor.name %>
             <% end %>
           </p>
+
+          <div style="margin-top:20px; text-align:right;">
+            <span style="color:#007bff; font-weight:bold;">
+              View Details →
+            </span>
+          </div>
         </div>
-       <% end %>
       <% end %>
+    <% end %>
   <% else %>
     <div style="text-align:center; padding:60px 20px;">
       <h2 style="color:#888;">

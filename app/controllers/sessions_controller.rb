@@ -7,14 +7,28 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(email: params[:user][:email])
-    if @user.present? && @user.authenticate(params[:user][:password])
-      session[:user_id] = @user.id
-      redirect_to dashboard_path, flash: { success: "Logged in successfully" }
+    if params[:user][:email].blank? || params[:user][:password].blank?
+      flash.now[:alert] = "Email and password cannot be blank"
     else
-      flash.now[:alert] = "Invalid email or password"
-      render :new, status: :unprocessable_entity
+      @user = User.find_by(email: params[:user][:email])
+      if @user.present? && @user.authenticate(params[:user][:password])
+      session[:user_id] = @user.id
+      redirect_to dashboard_path, flash: { success: "Logged in successfully" }; return;
+      else
+        flash.now[:alert] = "Invalid email or password"
+      end
     end
+    @user ||= User.new
+    render :new, status: :unprocessable_entity
+    # byebug
+    # @user = User.find_by(email: params[:user][:email])
+    # if @user.present? && @user.authenticate(params[:user][:password])
+    #   session[:user_id] = @user.id
+    #   redirect_to dashboard_path, flash: { success: "Logged in successfully" }
+    # else
+    #   flash.now[:alert] = "Invalid email or password"
+    #   render :new, status: :unprocessable_entity
+    # end
   end
 
   def destroy

@@ -69,10 +69,11 @@ class Appointment < ApplicationRecord
       return
     end
 
-    app_hours = appointment_at.strftime("%H:%M")
+    # app_hours = appointment_at.strftime("%H:%M")
+    app_hours = Appointment.print_hours_format(appointment_at)
 
-    start_hours = w_hours.start_time.strftime("%H:%M")
-    end_hours = w_hours.end_time.strftime("%H:%M")
+    start_hours = Appointment.print_hours_format(w_hours.start_time )
+    end_hours = Appointment.print_hours_format(w_hours.end_time)
 
     valide_time = if start_hours > end_hours
       app_hours.between?(start_hours, "23:59") || app_hours.between?("00:00", end_hours)
@@ -89,5 +90,9 @@ class Appointment < ApplicationRecord
     errors.add(:doctor_id, "doctor already have an appointment at given time") if Appointment.where(doctor_id: doctor_id, appointment_at: time_range).exists?
 
     errors.add(:patient_id, "patient already have an appointment at given time") if Appointment.where(patient_id: patient_id, appointment_at: time_range).exists?
+  end
+
+  def self.print_hours_format(time)
+    time.strftime("%I:%M %p")
   end
 end

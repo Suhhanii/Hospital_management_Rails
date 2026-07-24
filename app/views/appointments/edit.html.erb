@@ -1,34 +1,23 @@
 <div style="background:#fff; padding:35px; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,.15); max-width:600px; margin:auto;">
-
   <% if @action_type == "reschedule" %>
-
     <h1 style="text-align:center; color:#2c3e50; margin-bottom:30px;">
       Reschedule Appointment
     </h1>
-
     <%= form_with model: @appointment do |f| %>
-
       <%= hidden_field_tag :action_type, "reschedule" %>
-
       <div style="margin-bottom:25px;">
-
         <%= f.label :appointment_at,
             style:"display:block; font-weight:bold; color:#34495e; margin-bottom:8px;" %>
-
         <%= f.datetime_local_field :appointment_at,
             style:"width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:15px; box-sizing:border-box;" %>
-
       </div>
-
       <%= f.submit "Reschedule Appointment",
           style:"width:100%; background:#007bff; color:white; border:none; padding:12px; border-radius:6px; font-size:16px; font-weight:bold; cursor:pointer;" %>
-
     <% end %>
 
 
 
   <% elsif @action_type == "canceled" %>
-
     <h1 style="text-align:center; color:#dc3545; margin-bottom:20px;">
       Cancel Appointment
     </h1>
@@ -38,35 +27,24 @@
     </p>
 
     <%= form_with model: @appointment do |f| %>
-
       <%= hidden_field_tag :action_type, "canceled" %>
-
       <%= f.submit "Confirm Cancel",
           style:"width:100%; background:#dc3545; color:white; border:none; padding:12px; border-radius:6px; font-size:16px; font-weight:bold; cursor:pointer;" %>
-
     <% end %>
 
 
 
   <% elsif @action_type == "completed" %>
-
     <h1 style="text-align:center; color:#28a745; margin-bottom:20px;">
       Complete Appointment
     </h1>
-
     <p style="text-align:center; color:#555; margin-bottom:30px;">
       Mark this appointment as completed?
     </p>
-
     <%= form_with model: @appointment do |f| %>
-
       <%= hidden_field_tag :action_type, "completed" %>
-
       <%= f.submit "Mark as Completed",
           style:"width:100%; background:#28a745; color:white; border:none; padding:12px; border-radius:6px; font-size:16px; font-weight:bold; cursor:pointer;" %>
-
     <% end %>
-
   <% end %>
-
 </div>

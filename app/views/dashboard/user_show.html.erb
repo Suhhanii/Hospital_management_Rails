@@ -3,22 +3,26 @@
       <p><%= notice %></p>
     <% end %>
 </center>
-<% if current_user.is_a?(Doctor) %>
 
 <div style="text-align:center;">
-
-    <h1 style="color:#2c3e50; margin-bottom:10px;">
+  <% if current_user.is_a?(Doctor) %>
+    <h1 style="color:#2c3e50; margin-bottom:10px;" >
         Welcome Dr. <%= current_user.name %>
     </h1>
-
     <p style="color:#666; margin-bottom:35px;">
         Here's your appointment summary for today.
     </p>
-
+  <% else %>
+    <h1 style="color:#2c3e50;">
+        Welcome, <%= current_user.name.capitalize %>
+    </h1>
+    <p style="margin-top:20px; color:#666;">
+        Manage your appointments, view doctors and update your profile using the menu.
+    </p>
+  <% end %>
 </div>
 
 <div style="display:flex; justify-content:center; gap:25px; flex-wrap:wrap;">
-
     <div style="width:220px; background:#007bff; color:white; padding:25px; border-radius:10px; text-align:center;">
         <h2><%= @today_schedule_app.count %></h2>
         <p>Scheduled</p>
@@ -33,21 +37,5 @@
         <h2><%= @today_cancel_app.count %></h2>
         <p>Cancelled</p>
     </div>
-
 </div>
 
-<% else %>
-
-<div style="text-align:center;">
-
-    <h1 style="color:#2c3e50;">
-        Welcome, <%= current_user.name.capitalize %>
-    </h1>
-
-    <p style="margin-top:20px; color:#666;">
-        Manage your appointments, view doctors and update your profile using the menu.
-    </p>
-
-</div>
-
-<% end %>

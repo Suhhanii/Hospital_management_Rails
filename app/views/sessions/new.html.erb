@@ -8,13 +8,18 @@
       Sign In
     </h1>
 
+    <% if flash[:success] %>
+      <p style="background:#ffe5e5; color:#d63031; padding:10px; border-radius:6px; text-align:center; margin-bottom:20px;">
+        <%= flash[:success] %>
+      </p>
+    <% end %>
     <% if flash[:alert] %>
       <p style="background:#ffe5e5; color:#d63031; padding:10px; border-radius:6px; text-align:center; margin-bottom:20px;">
         <%= flash[:alert] %>
       </p>
     <% end %>
 
-    <%= form_with(model: @user, url: sessions_path, local: true) do |f| %>
+    <%= form_with(model: @user, url: sessions_path, method: :post, local: true) do |f| %>
 
       <div style="margin-bottom:18px;">
         <%= f.label :email, style: "display:block; font-weight:bold; margin-bottom:6px; color:#34495e;" %>
@@ -44,7 +49,5 @@
       <%= link_to "Sign Up", new_user_path,
           style: "color:#007bff; text-decoration:none; font-weight:bold;" %>
     </div>
-
   </div>
-
 </div>

@@ -19,11 +19,11 @@
         </h2>
         <p style="font-size:17px; margin:8px 0;">
           <strong>Start Time:</strong>
-          <%= wh.start_time.strftime("%I:%M %p") %>
+          <%= Appointment.print_hours_format(wh.start_time)   %>
         </p>
         <p style="font-size:17px; margin:8px 0;">
           <strong>End Time:</strong>
-          <%= wh.end_time.strftime("%I:%M %p") %>
+          <%= Appointment.print_hours_format(wh.end_time) %>
         </p>
       </div>
      <% end %>
@@ -34,3 +34,4 @@
     </div>
   <% end %>
 </div>
+

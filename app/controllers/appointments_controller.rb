@@ -1,17 +1,18 @@
 class AppointmentsController < ApplicationController
-  before_action :find_appointment, only: [ :show, :edit, :update ]
+  before_action :find_appointment, only: [ :appointment_show, :edit, :update ]
+
+  ALLOWED_VALUES = {
+    "filter": %w[ scheduled completed canceled],
+    "type": %w[ today upcoming past ]
+  }
 
   def index
     @appointments = current_user.appointments
-    @appointments = @appointments.send(params[:type]) if params[:type].present?
-    @appointments = @appointments.send(params[:filter]) if params[:filter].present?
-    # byebug
+    @appointments = @appointments.send(params[:type]) if valid_values?(:type, params)
+    @appointments = @appointments.send(params[:filter]) if valid_values?(:filter, params)
   end
 
-  def show
-  end
-
-  def delete
+  def appointment_show
   end
 
   def edit
@@ -26,7 +27,7 @@ class AppointmentsController < ApplicationController
     if current_user.appointments.create(appointments_params)
       status = "Appointment Book Successfully"
     else
-      status = current_user.errors.full_messages
+      status = current_user.appointments.last.errors.full_messages
     end
     flash[:alert] = status
     redirect_to appointments_path
@@ -46,7 +47,7 @@ class AppointmentsController < ApplicationController
   private
 
   def find_appointment
-    @appointment = Appointment.find(params[:id])
+    @appointment = current_user.appointments.find(params[:id])
   end
 
   def appointments_params
@@ -54,5 +55,9 @@ class AppointmentsController < ApplicationController
     :appointment_at,
     :doctor_id
     )
+  end
+
+  def valid_values?(key, value)
+    ALLOWED_VALUES[key].include?(value)
   end
 end

@@ -49,7 +49,7 @@ class WorkingHoursController < ApplicationController
   private
 
   def find_working_hour
-    @working_hour = WorkingHour.find(params[:id])
+    @working_hour = current_user.working_hours.find(params[:id])
   end
 
   def working_hour_params

@@ -1,5 +1,5 @@
 class AppointmentsController < ApplicationController
-  before_action :find_appointment, only: [ :appointment_show, :edit, :update ]
+  before_action :find_appointment, only: [ :show, :edit, :update ]
 
   ALLOWED_VALUES = {
     "filter": %w[ scheduled completed canceled],
@@ -10,9 +10,19 @@ class AppointmentsController < ApplicationController
     @appointments = current_user.appointments
     @appointments = @appointments.send(params[:type]) if valid_values?(:type, params)
     @appointments = @appointments.send(params[:filter]) if valid_values?(:filter, params)
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @appointments }
+      format.any { head :not_acceptable }
+    end
   end
 
-  def appointment_show
+  def show
+    respond_to do |format|
+      format.html
+      format.json { render json: @appointment}
+    end
   end
 
   def edit
@@ -24,24 +34,31 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    if current_user.appointments.create(appointments_params)
-      status = "Appointment Book Successfully"
+    @appointment = current_user.appointments.create(appointments_params)
+    status = if @appointment.save
+      "Appointment Book Successfully"
     else
-      status = current_user.appointments.last.errors.full_messages
+      current_user.appointments.last.errors.full_messages
     end
-    flash[:alert] = status
-    redirect_to appointments_path
+    # flash[:alert] = status
+    respond_to do |format|
+      format.html { redirect_to appointments_path, alert: status}
+      format.json { render json: { message: status } }
+    end
+    # redirect_to appointments_path
   end
 
   def update
     case params[:action_type]
     when "reschedule"
-      current_user.appointments.find(params[:id]).reschedule_appointment(params[:appointment][:appointment_at])
+      @appointment.reschedule_appointment(params[:appointment][:appointment_at])
     else
       @appointment.update(status: params[:action_type])
     end
-
-    redirect_to appointments_path, alert: "Appointment #{params[:action_type]}"
+    respond_to do |format|
+      format.html { redirect_to appointments_path, alert: "Appointment #{params[:action_type]}" }
+      format.json { render json: { message: "Appointment #{params[:action_type]}" }}
+    end
   end
 
   private

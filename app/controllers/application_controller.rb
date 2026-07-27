@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  # Skips forgery protection specifically for incoming JSON requests
+  protect_from_forgery unless: -> { request.format.json? }
   helper_method :current_user
   helper_method :user_signed_in?
   before_action :authenticate_user

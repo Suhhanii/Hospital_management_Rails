@@ -3,33 +3,48 @@ class WorkingHoursController < ApplicationController
 
   def index
     @working_hours = current_user.working_hours.order(:day_of_week)
+    respond_to do |format|
+      format.html
+      format.json { render json: @working_hours }
+    end 
   end
 
   def edit
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.json { render json: @working_hour }
+    end
   end
 
   def update
-    if @working_hour.update(working_hour_params)
-      status = "Updated Successfully"
+    status = if @working_hour.update(working_hour_params)
+      "Updated Successfully"
     else
-      status = @working_hour.errors.full_messages
+      @working_hour.errors.full_messages
     end
     flash[:alert] = status
-    redirect_to working_hours_path
+    respond_to do |format|
+      format.html { redirect_to working_hours_path, alert: status }
+      format.json { render json: { message: status } }
+    end
   end
 
   def create
     # byebug
-    if current_user.working_hours << WorkingHour.create(working_hour_params)
+    @working_hour = current_user.working_hours.new(working_hour_params)
+    if @working_hour.save
       status = "Working Hour Created Successfully"
     else
-      status = current_user.errors.full_messages
+      status = @working_hour.errors.full_messages
     end
-    flash[:alert] = status
-    redirect_to working_hours_path
+    # flash[:alert] = status
+    respond_to do |format|
+      format.html { redirect_to working_hours_path, alert: status }
+      format.json { render json: { message: status } }
+    end 
   end
 
   def new
@@ -37,13 +52,16 @@ class WorkingHoursController < ApplicationController
   end
 
   def destroy
-    if @working_hour.destroy
-      status = "Working Hour Deleted Successfully"
+    status = if @working_hour.destroy
+      "Working Hour Deleted Successfully"
     else
-      status = @working_hour.errors.full_messages
+      @working_hour.errors.full_messages
     end
     flash[:alert] = status
-    redirect_to working_hours_path
+    respond_to do |format|
+      format.html { redirect_to working_hours_path, alert: status }
+      format.json { render json: {message: status} }
+    end
   end
 
   private

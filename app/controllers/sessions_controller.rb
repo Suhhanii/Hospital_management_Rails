@@ -7,10 +7,12 @@ class SessionsController < ApplicationController
   end
 
   def create
+    # byebug
     if params[:user][:email].blank? || params[:user][:password].blank?
       flash.now[:alert] = "Email and password cannot be blank"
     else
-      @user = User.find_by(email: params[:user][:email])
+      @user = User.find_by(email: params[:user][:email].downcase)
+      # byebug
       if @user.present? && @user.authenticate(params[:user][:password])
       session[:user_id] = @user.id
       redirect_to dashboard_path, flash: { success: "Logged in successfully" }; return;

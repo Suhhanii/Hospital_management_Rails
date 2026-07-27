@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   resources :specializations
 
   get "/signup", to: "users#new"
-  post "/appointment", to: "appointments#appointment_show", as: :appointment_show
+  # post "/appointment", to: "appointments#appointment_show", as: :appointment_show
 
 
 

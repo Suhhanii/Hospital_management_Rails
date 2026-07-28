@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  skip_before_action :authenticate_user, only: [ :new, :create ]
+
   layout "sessions", only: [ :new ]
   include Sharable
 
@@ -11,13 +13,18 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-
-    if @user.save
-      flash[:success] = "Account Created Successfully"
-      redirect_to new_session_path
-    else
-      flash.now[:error] = @user.errors.full_messages
-      render :new, status: :unprocessable_entity
+    
+    respond_to do |format|
+      if @user.save
+        success = "Account Created Successfully"
+        token = JsonWebToken.encode(user_id: @user.id)
+        format.html { redirect_to new_session_path, success }
+        format.json { render json: { token: token,   message: success } }  
+      else
+        flash.now[:error] = @user.errors.full_messages
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: { message:  @user.errors.full_messages } }
+      end
     end
   end
 
@@ -28,13 +35,16 @@ class UsersController < ApplicationController
   end
 
   def update
-    if current_user.update(user_params)
-      flash[:alert] = "Updated Successfully"
-      redirect_to user_path(current_user)
-    else
-      # byebug
-      flash.now[:error] = current_user.errors.full_messages
-      render :edit, status: :unprocessable_entity
+    respond_to do |format|
+      if current_user.update(user_params)
+        alert = "Updated Successfully"
+        format.html { redirect_to user_path(current_user) }
+        format.json { render json: { message: alert }}
+      else
+        error = current_user.errors.full_messages
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: { message: error }}
+      end
     end
   end
 
@@ -52,3 +62,9 @@ class UsersController < ApplicationController
     )
   end
 end
+
+#doctor login token
+#eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3ODUzMzA1NTl9.ths-P6UUulVfLJJzjHBeXQiEKQFt7pGAjEy5WVgzQzg
+
+#patient login token
+#eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE3ODUzMzM1MzV9.Ul8aK4DUPJoGVvOmSs5Bndpsc6d34j0uPdLQLi9Neh0

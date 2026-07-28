@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   helper_method :user_signed_in?
   before_action :authenticate_user
 
+
   def current_user
     @current_user ||= session[:user_id] && User.find_by(id: session[:user_id])
   end
@@ -14,7 +15,16 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user
-    redirect_to new_session_path, flash: { danger: "You must be signed in" } if current_user.nil?
+    header = request.headers['Authorization']
+    token = header.split(' ').last if header
+    decoded = JsonWebToken.decode(token)
+
+    if decoded
+      @current_user = User.find_by(id: decoded[:user_id])
+    else
+      render json: { error: "Unauthorized" }, status: :unauthorized
+    end
+    # redirect_to new_session_path, flash: { danger: "You must be signed in" } if current_user.nil?
   end
 
   def redirect_if_authenticated

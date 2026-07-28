@@ -138,7 +138,7 @@
 
       <h2>City Care</h2>
 
-      <%= link_to "Profile", user_path(current_user) %>
+      <%= link_to "Profile", user_path(current_user) if current_user %>
       <%= link_to "Dashboard",
           root_path %>
       <%= link_to "Appointments",

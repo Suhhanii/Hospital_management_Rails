@@ -157,8 +157,8 @@
           <%= link_to "Back", request.referer, class: "logout-btn back-btn" %>
         </div>
 
-        <% if session[:user_id] %>
-          <%= form_with url: session_path(session[:user_id]), method: :delete do %>
+        <% if cookies.encrypted[:user_id] %>
+          <%= form_with url: session_path(cookies.encrypted[:user_id]), method: :delete do %>
             <%= submit_tag "Logout", class:"logout-btn" %>
           <% end %>
         <% else %>

@@ -7,10 +7,11 @@ class AppointmentsController < ApplicationController
   }
 
   def index
+    # byebug
     @appointments = current_user.appointments
-    @appointments = @appointments.send(params[:type]) if valid_values?(:type, params)
+    @appointments = @appointments.send(params[:type]) if  ?(:type, params)
     @appointments = @appointments.send(params[:filter]) if valid_values?(:filter, params)
-
+    # byebug
     respond_to do |format|
       format.html
       format.json { render json: @appointments }
@@ -35,17 +36,17 @@ class AppointmentsController < ApplicationController
 
   def create
     @appointment = current_user.appointments.create(appointments_params)
-    status = if @appointment.save
+
+    alert_message = if @appointment.save
       "Appointment Book Successfully"
     else
-      current_user.appointments.last.errors.full_messages
+      @appointment.errors.full_messages
     end
-    # flash[:alert] = status
+
     respond_to do |format|
-      format.html { redirect_to appointments_path, alert: status}
-      format.json { render json: { message: status } }
+      format.html { redirect_to appointments_path, alert: alert_message}
+      format.json { render json: { message: alert_message } }
     end
-    # redirect_to appointments_path
   end
 
   def update
@@ -55,6 +56,7 @@ class AppointmentsController < ApplicationController
     else
       @appointment.update(status: params[:action_type])
     end
+
     respond_to do |format|
       format.html { redirect_to appointments_path, alert: "Appointment #{params[:action_type]}" }
       format.json { render json: { message: "Appointment #{params[:action_type]}" }}

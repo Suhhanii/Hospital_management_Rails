@@ -3,6 +3,7 @@ class WorkingHoursController < ApplicationController
 
   def index
     @working_hours = current_user.working_hours.order(:day_of_week)
+
     respond_to do |format|
       format.html
       format.json { render json: @working_hours }
@@ -13,6 +14,7 @@ class WorkingHoursController < ApplicationController
   end
 
   def show
+    byebug
     respond_to do |format|
       format.html
       format.json { render json: @working_hour }
@@ -20,30 +22,29 @@ class WorkingHoursController < ApplicationController
   end
 
   def update
-    status = if @working_hour.update(working_hour_params)
+    alert_message = if @working_hour.update(working_hour_params)
       "Updated Successfully"
     else
       @working_hour.errors.full_messages
     end
-    flash[:alert] = status
+
     respond_to do |format|
-      format.html { redirect_to working_hours_path, alert: status }
-      format.json { render json: { message: status } }
+      format.html { redirect_to working_hours_path, alert: alert_message }
+      format.json { render json: { message: alert_message }}
     end
   end
 
   def create
-    # byebug
     @working_hour = current_user.working_hours.new(working_hour_params)
-    if @working_hour.save
-      status = "Working Hour Created Successfully"
+    alert_message = if @working_hour.save
+      "Working Hour Created Successfully"
     else
-      status = @working_hour.errors.full_messages
+      @working_hour.errors.full_messages
     end
-    # flash[:alert] = status
+
     respond_to do |format|
-      format.html { redirect_to working_hours_path, alert: status }
-      format.json { render json: { message: status } }
+      format.html { redirect_to working_hours_path, alert: alert_message }
+      format.json { render json: { message: alert_message }}
     end 
   end
 
@@ -52,15 +53,15 @@ class WorkingHoursController < ApplicationController
   end
 
   def destroy
-    status = if @working_hour.destroy
+    alert_message = if @working_hour.destroy
       "Working Hour Deleted Successfully"
     else
       @working_hour.errors.full_messages
     end
-    flash[:alert] = status
+
     respond_to do |format|
-      format.html { redirect_to working_hours_path, alert: status }
-      format.json { render json: {message: status} }
+      format.html { redirect_to working_hours_path, alert: alert_message }
+      format.json { render json: {message: alert_message }}
     end
   end
 

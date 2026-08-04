@@ -42,6 +42,9 @@ gem "image_processing", "~> 1.2"
 
 group :development, :test do
   gem "rubocop"
+  gem "foreman"
+  gem "rspec-rails", "~> 7.0"
+  gem "shoulda-matchers", "~> 6.0"
 
   gem "byebug"
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

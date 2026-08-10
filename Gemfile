@@ -45,6 +45,7 @@ group :development, :test do
   gem "foreman"
   gem "rspec-rails", "~> 7.0"
   gem "shoulda-matchers", "~> 6.0"
+  # gem "sidekiq"
 
   gem "byebug"
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -81,3 +82,8 @@ gem 'font-awesome-rails'
 gem 'popper_js', '~> 1.12.9'
 gem 'active_model_serializers'
 gem 'jwt'
+
+gem "sidekiq", "~> 8.1"
+gem "solid_cache"
+gem "solid_queue"
+gem "solid_cable"
